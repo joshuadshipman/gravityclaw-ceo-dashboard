@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en" id="html-root">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Budget Planner — Free Financial Planning Tool | Planificador Sin Ansiedad</title>
+  <meta name="description" content="Free anxiety-free budget planner. Track income, bills, savings, and goals. Available in English and Spanish. No signup required.">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0d1117;
+      --surface: #161b22;
+      --card: #21262d;
+      --border: rgba(255,255,255,0.08);
+      --accent: #8b5cf6;
+      --green: #10b981;
+      --red: #ef4444;
+      --amber: #f59e0b;
+      --text: #f0f6fc;
+      --muted: #8b949e;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Outfit', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+    .topbar {
+      background: var(--surface); border-bottom: 1px solid var(--border);
+      padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center;
+      position: sticky; top: 0; z-index: 100;
+    }
+    .logo { font-weight: 900; font-size: 1.2rem; }
+    .logo span { color: var(--accent); }
+    .lang-btn {
+      background: var(--card); border: 1px solid var(--border);
+      color: var(--text); padding: 0.4rem 1rem; border-radius: 20px;
+      cursor: pointer; font-family: inherit; font-size: 0.8rem; font-weight: 700;
+    }
+
+    .hero {
+      text-align: center; padding: 3rem 2rem 1.5rem;
+      background: linear-gradient(180deg, rgba(139,92,246,0.08) 0%, transparent 100%);
+    }
+    .badge {
+      display: inline-block; background: rgba(139,92,246,0.15);
+      color: var(--accent); padding: 0.3rem 0.9rem; border-radius: 20px;
+      font-size: 0.7rem; font-weight: 900; letter-spacing: 0.1em; margin-bottom: 1rem;
+    }
+    .hero h1 { font-size: 2.5rem; font-weight: 900; letter-spacing: -0.04em; margin-bottom: 0.5rem; }
+    .hero h1 span { color: var(--accent); }
+    .hero p { color: var(--muted); }
+
+    .app { max-width: 1100px; margin: 2rem auto; padding: 0 2rem 5rem; }
+
+    /* SUMMARY CARDS */
+    .summary-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 2rem;
+    }
+    .sum-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 16px; padding: 1.25rem;
+    }
+    .sum-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 0.5rem; }
+    .sum-val { font-size: 1.8rem; font-weight: 900; }
+    .sum-sub { font-size: 0.75rem; color: var(--muted); margin-top: 0.25rem; }
+
+    /* PROGRESS BAR */
+    .progress-wrap { margin-top: 0.75rem; }
+    .progress-bar { height: 6px; background: rgba(255,255,255,0.06); border-radius: 3px; overflow: hidden; }
+    .progress-fill { height: 100%; border-radius: 3px; transition: width 0.5s ease; }
+
+    /* BUDGET TABLE */
+    .panel { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 1.5rem; margin-bottom: 1.5rem; }
+    .panel-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; }
+    .panel-title { font-weight: 800; font-size: 1rem; }
+    .add-btn {
+      background: rgba(255,255,255,0.05); border: 1px solid var(--border);
+      color: var(--muted); padding: 0.35rem 0.85rem; border-radius: 8px;
+      cursor: pointer; font-family: inherit; font-size: 0.78rem; font-weight: 700;
+      transition: all 0.15s;
+    }
+    .add-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+    .budget-row {
+      display: grid; grid-template-columns: 1fr 0.6fr 0.6fr 28px;
+      gap: 0.5rem; align-items: center; margin-bottom: 0.5rem;
+    }
+    .budget-row input {
+      width: 100%; padding: 0.6rem 0.75rem; background: var(--card);
+      border: 1px solid var(--border); border-radius: 8px;
+      color: var(--text); font-family: inherit; font-size: 0.85rem;
+      transition: border-color 0.2s;
+    }
+    .budget-row input:focus { outline: none; border-color: var(--accent); }
+    .del-btn { background: none; border: none; color: var(--muted); cursor: pointer; font-size: 0.9rem; padding: 0.4rem; border-radius: 6px; transition: all 0.15s; }
+    .del-btn:hover { color: var(--red); background: rgba(239,68,68,0.08); }
+    .row-header { display: grid; grid-template-columns: 1fr 0.6fr 0.6fr 28px; gap: 0.5rem; font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 0.5rem; }
+
+    .goal-row { display: grid; grid-template-columns: 1fr 0.5fr 0.5fr 0.5fr 28px; gap: 0.5rem; align-items: center; margin-bottom: 0.5rem; }
+    .goal-row input { width: 100%; padding: 0.6rem 0.75rem; background: var(--card); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-family: inherit; font-size: 0.85rem; }
+
+    /* SAVINGS METER */
+    .savings-meter {
+      background: linear-gradient(135deg, rgba(16,185,129,0.08), rgba(139,92,246,0.05));
+      border: 1px solid rgba(16,185,129,0.2); border-radius: 16px; padding: 1.5rem; margin-top: 1.5rem;
+    }
+    .savings-title { font-weight: 900; font-size: 1.1rem; margin-bottom: 1rem; }
+    .savings-advice { font-size: 0.85rem; color: var(--muted); line-height: 1.6; margin-top: 1rem; background: var(--card); border-radius: 10px; padding: 1rem; }
+
+    /* UPSELL */
+    .upsell {
+      margin-top: 1.5rem; padding: 1.5rem;
+      background: linear-gradient(135deg, rgba(139,92,246,0.08), rgba(16,185,129,0.05));
+      border: 1px solid rgba(139,92,246,0.2); border-radius: 16px; text-align: center;
+    }
+    .upsell h3 { font-weight: 900; margin-bottom: 0.5rem; }
+    .upsell p { font-size: 0.85rem; color: var(--muted); margin-bottom: 1rem; }
+    .upsell-form { display: flex; gap: 0.5rem; max-width: 400px; margin: 0 auto; }
+    .upsell-form input { flex: 1; padding: 0.75rem 1rem; background: var(--card); border: 1px solid var(--border); border-radius: 10px; color: var(--text); font-family: inherit; }
+    .upsell-form button { padding: 0.75rem 1.5rem; background: var(--accent); border: none; border-radius: 10px; color: white; font-weight: 700; cursor: pointer; font-family: inherit; }
+
+    @media (max-width: 768px) {
+      .summary-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="logo">Budget<span>Calm</span></div>
+    <button class="lang-btn" onclick="toggleLang()" id="lang-toggle">🇲🇽 Español</button>
+  </div>
+
+  <div class="hero">
+    <div class="badge" id="badge-text">ANXIETY-FREE BUDGET PLANNER</div>
+    <h1 id="hero-title">Your Money. <span>Your Rules.</span></h1>
+    <p id="hero-sub">Track income, expenses, and savings goals. No spreadsheet skills needed.</p>
+  </div>
+
+  <div class="app">
+    <!-- SUMMARY -->
+    <div class="summary-grid">
+      <div class="sum-card" style="border-top: 2px solid var(--green);">
+        <div class="sum-label" id="lbl-income">Monthly Income</div>
+        <div class="sum-val" style="color:var(--green)" id="sum-income">$0</div>
+      </div>
+      <div class="sum-card" style="border-top: 2px solid var(--red);">
+        <div class="sum-label" id="lbl-expenses">Total Expenses</div>
+        <div class="sum-val" style="color:var(--red)" id="sum-expenses">$0</div>
+      </div>
+      <div class="sum-card" style="border-top: 2px solid var(--accent);">
+        <div class="sum-label" id="lbl-remaining">Remaining</div>
+        <div class="sum-val" id="sum-remaining">$0</div>
+        <div class="progress-wrap">
+          <div class="progress-bar"><div class="progress-fill" id="remaining-bar" style="width:0%; background:var(--accent)"></div></div>
+        </div>
+      </div>
+      <div class="sum-card" style="border-top: 2px solid var(--amber);">
+        <div class="sum-label" id="lbl-savings-rate">Savings Rate</div>
+        <div class="sum-val" style="color:var(--amber)" id="sum-savings-rate">0%</div>
+        <div class="sum-sub" id="savings-grade"></div>
+      </div>
+    </div>
+
+    <!-- INCOME -->
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title" id="section-income">💰 Income Sources</div>
+        <button class="add-btn" onclick="addRow('income')" id="btn-add-income">+ Add Source</button>
+      </div>
+      <div class="row-header"><span id="rh-desc">Description</span><span id="rh-budgeted">Budgeted</span><span id="rh-actual">Actual</span><span></span></div>
+      <div id="income-rows"></div>
+    </div>
+
+    <!-- EXPENSES -->
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title" id="section-expenses">💸 Monthly Expenses</div>
+        <button class="add-btn" onclick="addRow('expenses')" id="btn-add-expenses">+ Add Expense</button>
+      </div>
+      <div class="row-header"><span>Description</span><span id="rh-budget">Budgeted</span><span id="rh-spent">Spent</span><span></span></div>
+      <div id="expense-rows"></div>
+    </div>
+
+    <!-- SAVINGS GOALS -->
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title" id="section-goals">🎯 Savings Goals</div>
+        <button class="add-btn" onclick="addGoal()" id="btn-add-goal">+ Add Goal</button>
+      </div>
+      <div id="goal-rows"></div>
+    </div>
+
+    <!-- FINANCIAL HEALTH -->
+    <div class="savings-meter">
+      <div class="savings-title" id="lbl-health">💡 Financial Health Check</div>
+      <div class="savings-advice" id="health-advice">Enter your income and expenses above to get personalized financial advice.</div>
+    </div>
+
+    <!-- UPSELL -->
+    <div class="upsell">
+      <h3 id="upsell-title">📊 Want a Full Annual Budget System?</h3>
+      <p id="upsell-desc">Get the complete BudgetCalm Google Sheets template — 12-month tracker, debt payoff calculator, and auto-charts. 100% free with email.</p>
+      <div class="upsell-form">
+        <input type="email" id="upsell-email" placeholder="your@email.com">
+        <button onclick="submitUpsell()" id="btn-upsell">Get It Free</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const S = {
+      en: {
+        badge: 'ANXIETY-FREE BUDGET PLANNER', heroTitle: 'Your Money. <span style="color:#8b5cf6">Your Rules.</span>',
+        heroSub: 'Track income, expenses, and savings goals. No spreadsheet skills needed.',
+        lblIncome: 'Monthly Income', lblExpenses: 'Total Expenses', lblRemaining: 'Remaining', lblSavingsRate: 'Savings Rate',
+        sectionIncome: '💰 Income Sources', sectionExpenses: '💸 Monthly Expenses', sectionGoals: '🎯 Savings Goals',
+        btnAddIncome: '+ Add Source', btnAddExpenses: '+ Add Expense', btnAddGoal: '+ Add Goal',
+        rhDesc: 'Description', rhBudgeted: 'Budgeted', rhActual: 'Actual', rhBudget: 'Budgeted', rhSpent: 'Spent',
+        lbl_health: '💡 Financial Health Check',
+        healthPlaceholder: 'Enter your income and expenses above to get personalized financial advice.',
+        upsellTitle: '📊 Want a Full Annual Budget System?',
+        upsellDesc: 'Get the complete BudgetCalm Google Sheets template — 12-month tracker, debt payoff calculator, and auto-charts. 100% free with email.',
+        btnUpsell: 'Get It Free', langBtn: '🇲🇽 Español',
+        grades: { great: '🟢 Excellent saver!', good: '🟡 Good job — keep going!', ok: '🟠 Room to improve', low: '🔴 Spending too much' },
+        advice: (rate, rem) => {
+          if (rate >= 20) return `💪 You're saving ${rate}% of your income. That's excellent! Financial experts recommend 20%+. Keep it up.`;
+          if (rate >= 10) return `📈 You're saving ${rate}% of income — good progress! Try automating $${Math.round(rem * 0.05).toLocaleString()} more per month.`;
+          if (rate > 0) return `⚠️ Saving only ${rate}%. Look at your top 3 expenses and cut 10%. Even $50/month adds up to $600/year.`;
+          return '🚨 No savings detected. Start with just 1% of your income to build the habit. Every dollar counts.';
+        }
+      },
+      es: {
+        badge: 'PLANIFICADOR SIN ANSIEDAD', heroTitle: 'Tu Dinero. <span style="color:#8b5cf6">Tus Reglas.</span>',
+        heroSub: 'Registra ingresos, gastos y metas de ahorro. Sin habilidades en hojas de cálculo.',
+        lblIncome: 'Ingresos Mensuales', lblExpenses: 'Gastos Totales', lblRemaining: 'Restante', lblSavingsRate: 'Tasa de Ahorro',
+        sectionIncome: '💰 Fuentes de Ingreso', sectionExpenses: '💸 Gastos Mensuales', sectionGoals: '🎯 Metas de Ahorro',
+        btnAddIncome: '+ Agregar Ingreso', btnAddExpenses: '+ Agregar Gasto', btnAddGoal: '+ Agregar Meta',
+        rhDesc: 'Descripción', rhBudgeted: 'Presupuesto', rhActual: 'Real', rhBudget: 'Presupuesto', rhSpent: 'Gastado',
+        lbl_health: '💡 Análisis de Salud Financiera',
+        healthPlaceholder: 'Ingresa tus ingresos y gastos para obtener consejos personalizados.',
+        upsellTitle: '📊 ¿Quieres un Sistema de Presupuesto Anual Completo?',
+        upsellDesc: 'Obtén la plantilla completa de Google Sheets — seguimiento de 12 meses, calculadora de deudas y gráficas automáticas. 100% gratis con email.',
+        btnUpsell: 'Obtenerlo Gratis', langBtn: '🇺🇸 English',
+        grades: { great: '🟢 ¡Excelente ahorro!', good: '🟡 ¡Buen trabajo, sigue así!', ok: '🟠 Hay margen para mejorar', low: '🔴 Gastando demasiado' },
+        advice: (rate, rem) => {
+          if (rate >= 20) return `💪 Estás ahorrando el ${rate}% de tus ingresos. ¡Excelente! Los expertos recomiendan al menos un 20%.`;
+          if (rate >= 10) return `📈 Ahorras el ${rate}% — ¡buen progreso! Intenta automatizar $${Math.round(rem * 0.05).toLocaleString()} más por mes.`;
+          if (rate > 0) return `⚠️ Solo ahorras un ${rate}%. Revisa tus 3 gastos principales y reduce un 10%. Incluso $50/mes son $600 al año.`;
+          return '🚨 No se detectan ahorros. Empieza con el 1% de tu ingreso. Cada peso cuenta.';
+        }
+      }
+    };
+
+    let lang = 'en';
+    let incomeData = [{ desc: 'Primary Job', budgeted: 0, actual: 0 }];
+    let expenseData = [{ desc: 'Rent / Mortgage', budgeted: 0, actual: 0 }, { desc: 'Groceries', budgeted: 0, actual: 0 }];
+    let goalData = [{ desc: 'Emergency Fund', target: 0, saved: 0 }];
+
+    function toggleLang() { lang = lang === 'en' ? 'es' : 'en'; applyStrings(); recalc(); }
+
+    function applyStrings() {
+      const s = S[lang];
+      document.getElementById('html-root').lang = lang;
+      ['badge-text','hero-sub','lbl-income','lbl-expenses','lbl-remaining','lbl-savings-rate',
+       'section-income','section-expenses','section-goals','btn-add-income','btn-add-expenses',
+       'btn-add-goal','rh-desc','rh-budgeted','rh-actual','rh-budget','rh-spent','lbl-health',
+       'upsell-title','upsell-desc','btn-upsell','lang-toggle'].forEach(id => {
+        const el = document.getElementById(id);
+        const key = id.replace(/-([a-z])/g, (_, c) => c.toUpperCase()).replace('lbl','lbl').replace('rh','rh');
+        const sKey = {
+          'badge-text': 'badge', 'hero-sub': 'heroSub', 'lbl-income': 'lblIncome',
+          'lbl-expenses': 'lblExpenses', 'lbl-remaining': 'lblRemaining', 'lbl-savings-rate': 'lblSavingsRate',
+          'section-income': 'sectionIncome', 'section-expenses': 'sectionExpenses', 'section-goals': 'sectionGoals',
+          'btn-add-income': 'btnAddIncome', 'btn-add-expenses': 'btnAddExpenses', 'btn-add-goal': 'btnAddGoal',
+          'rh-desc': 'rhDesc', 'rh-budgeted': 'rhBudgeted', 'rh-actual': 'rhActual',
+          'rh-budget': 'rhBudget', 'rh-spent': 'rhSpent', 'lbl-health': 'lbl_health',
+          'upsell-title': 'upsellTitle', 'upsell-desc': 'upsellDesc', 'btn-upsell': 'btnUpsell',
+          'lang-toggle': 'langBtn'
+        }[id];
+        if (el && sKey && s[sKey]) el.textContent = s[sKey];
+      });
+      document.getElementById('hero-title').innerHTML = s.heroTitle;
+      document.getElementById('upsell-email').placeholder = lang === 'es' ? 'tu@correo.com' : 'your@email.com';
+      renderAll();
+    }
+
+    function renderRows(data, containerId, type) {
+      const c = document.getElementById(containerId);
+      c.innerHTML = '';
+      data.forEach((row, i) => {
+        const div = document.createElement('div');
+        div.className = 'budget-row';
+        div.innerHTML = `
+          <input type="text" value="${row.desc}" placeholder="${S[lang].rhDesc}" oninput="${type}Data[${i}].desc=this.value">
+          <input type="number" value="${row.budgeted||''}" placeholder="0" min="0" step="1" oninput="${type}Data[${i}].budgeted=parseFloat(this.value)||0;recalc()">
+          <input type="number" value="${row.actual||''}" placeholder="0" min="0" step="1" oninput="${type}Data[${i}].actual=parseFloat(this.value)||0;recalc()">
+          <button class="del-btn" onclick="${type}Data.splice(${i},1);renderAll()">✕</button>
+        `;
+        c.appendChild(div);
+      });
+    }
+
+    function renderGoals() {
+      const c = document.getElementById('goal-rows');
+      c.innerHTML = '';
+      goalData.forEach((g, i) => {
+        const pct = g.target > 0 ? Math.min(100, Math.round((g.saved / g.target) * 100)) : 0;
+        const div = document.createElement('div');
+        div.innerHTML = `
+          <div class="goal-row">
+            <input type="text" value="${g.desc}" placeholder="Goal name" oninput="goalData[${i}].desc=this.value">
+            <input type="number" value="${g.target||''}" placeholder="${lang==='es'?'Meta':'Target'}" min="0" oninput="goalData[${i}].target=parseFloat(this.value)||0;renderGoals()">
+            <input type="number" value="${g.saved||''}" placeholder="${lang==='es'?'Ahorrado':'Saved'}" min="0" oninput="goalData[${i}].saved=parseFloat(this.value)||0;renderGoals()">
+            <div style="font-size:0.8rem; font-weight:700; color:${pct>=100?'var(--green)':'var(--accent)'};">${pct}%</div>
+            <button class="del-btn" onclick="goalData.splice(${i},1);renderGoals()">✕</button>
+          </div>
+          <div style="margin: 0 0 1rem; padding: 0 0.5rem;">
+            <div class="progress-bar"><div class="progress-fill" style="width:${pct}%; background:${pct>=100?'var(--green)':'var(--accent)'}"></div></div>
+          </div>
+        `;
+        c.appendChild(div);
+      });
+    }
+
+    function renderAll() { renderRows(incomeData, 'income-rows', 'income'); renderRows(expenseData, 'expense-rows', 'expense'); renderGoals(); recalc(); }
+
+    function addRow(type) {
+      const desc = type === 'income' ? (lang==='es'?'Nueva fuente':'New source') : (lang==='es'?'Nuevo gasto':'New expense');
+      if (type === 'income') incomeData.push({ desc, budgeted: 0, actual: 0 });
+      else expenseData.push({ desc, budgeted: 0, actual: 0 });
+      renderAll();
+    }
+    function addGoal() { goalData.push({ desc: lang==='es'?'Nueva meta':'New goal', target: 0, saved: 0 }); renderGoals(); }
+
+    function recalc() {
+      const totalIncome = incomeData.reduce((s, r) => s + (r.actual || r.budgeted || 0), 0);
+      const totalExpenses = expenseData.reduce((s, r) => s + (r.actual || r.budgeted || 0), 0);
+      const remaining = totalIncome - totalExpenses;
+      const savingsRate = totalIncome > 0 ? Math.round((remaining / totalIncome) * 100) : 0;
+
+      const fmt = n => '$' + Math.max(0, n).toLocaleString();
+      document.getElementById('sum-income').textContent = fmt(totalIncome);
+      document.getElementById('sum-expenses').textContent = fmt(totalExpenses);
+      document.getElementById('sum-remaining').textContent = (remaining < 0 ? '-$' : '$') + Math.abs(remaining).toLocaleString();
+      document.getElementById('sum-remaining').style.color = remaining >= 0 ? 'var(--accent)' : 'var(--red)';
+      document.getElementById('sum-savings-rate').textContent = savingsRate + '%';
+      document.getElementById('remaining-bar').style.width = Math.max(0, Math.min(100, (remaining / totalIncome) * 100)) + '%';
+
+      const s = S[lang];
+      const grade = savingsRate >= 20 ? 'great' : savingsRate >= 10 ? 'good' : savingsRate > 0 ? 'ok' : 'low';
+      document.getElementById('savings-grade').textContent = s.grades[grade];
+      document.getElementById('health-advice').textContent = totalIncome > 0 ? s.advice(savingsRate, remaining) : s.healthPlaceholder;
+    }
+
+    function submitUpsell() {
+      const email = document.getElementById('upsell-email').value;
+      if (!email) return;
+      document.querySelector('.upsell').innerHTML = `<p style="color:#10b981; font-weight:700; font-size:1.1rem; text-align:center; padding:1rem;">✓ ${lang==='es'?'¡Registrado! Revisa tu correo pronto.':'You\'re in! Check your email soon.'}</p>`;
+    }
+
+    applyStrings();
+  </script>
+</body>
+</html>

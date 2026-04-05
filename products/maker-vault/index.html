@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en" id="html-root">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Maker Vault — Free Invoice Generator | Generador de Facturas Gratis</title>
+  <meta name="description" content="Free professional invoice generator for freelancers and contractors. Create, download, and send invoices in seconds. EN/ES.">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0d1117;
+      --surface: #161b22;
+      --card: #21262d;
+      --border: rgba(255,255,255,0.08);
+      --accent: #2563eb;
+      --accent2: #10b981;
+      --text: #f0f6fc;
+      --muted: #8b949e;
+      --danger: #ef4444;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Outfit', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+    /* TOPBAR */
+    .topbar {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky; top: 0; z-index: 100;
+    }
+    .logo { font-weight: 900; font-size: 1.2rem; letter-spacing: -0.03em; }
+    .logo span { color: var(--accent); }
+    .lang-btn {
+      background: var(--card); border: 1px solid var(--border);
+      color: var(--text); padding: 0.4rem 1rem; border-radius: 20px;
+      cursor: pointer; font-family: inherit; font-size: 0.8rem; font-weight: 700;
+      transition: all 0.2s;
+    }
+    .lang-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* HERO */
+    .hero {
+      text-align: center; padding: 4rem 2rem 2rem;
+      background: linear-gradient(180deg, rgba(37,99,235,0.08) 0%, transparent 100%);
+    }
+    .badge {
+      display: inline-block; background: rgba(37,99,235,0.15);
+      color: var(--accent); padding: 0.3rem 0.9rem; border-radius: 20px;
+      font-size: 0.7rem; font-weight: 900; letter-spacing: 0.1em; margin-bottom: 1.5rem;
+    }
+    .hero h1 { font-size: 2.8rem; font-weight: 900; letter-spacing: -0.04em; margin-bottom: 0.75rem; }
+    .hero h1 span { color: var(--accent); }
+    .hero p { color: var(--muted); font-size: 1.05rem; max-width: 500px; margin: 0 auto; }
+
+    /* LAYOUT */
+    .app-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: 2rem;
+      max-width: 1300px;
+      margin: 2rem auto;
+      padding: 0 2rem 4rem;
+    }
+
+    /* FORM PANEL */
+    .form-panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 2rem;
+    }
+    .section-title {
+      font-size: 0.7rem; font-weight: 800; text-transform: uppercase;
+      letter-spacing: 0.12em; color: var(--muted); margin-bottom: 1rem;
+    }
+    .field-group { margin-bottom: 1.5rem; }
+    label { display: block; font-size: 0.78rem; font-weight: 600; color: var(--muted); margin-bottom: 0.4rem; }
+    input, textarea, select {
+      width: 100%; padding: 0.75rem 1rem;
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: 10px; color: var(--text);
+      font-family: inherit; font-size: 0.9rem;
+      transition: border-color 0.2s;
+    }
+    input:focus, textarea:focus, select:focus {
+      outline: none; border-color: var(--accent);
+    }
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .three-col { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 0.5rem; align-items: center; }
+
+    /* LINE ITEMS */
+    .line-items { margin-bottom: 1.5rem; }
+    .line-item { display: grid; grid-template-columns: 2fr 1fr 1fr 28px; gap: 0.5rem; margin-bottom: 0.5rem; align-items: center; }
+    .line-item input { margin-bottom: 0; }
+    .del-btn {
+      background: none; border: none; color: var(--muted);
+      font-size: 1rem; cursor: pointer; padding: 0.5rem;
+      border-radius: 6px; transition: all 0.15s;
+    }
+    .del-btn:hover { background: rgba(239,68,68,0.1); color: var(--danger); }
+    .add-line-btn {
+      width: 100%; padding: 0.65rem; background: none;
+      border: 1px dashed var(--border); border-radius: 10px;
+      color: var(--muted); font-family: inherit; font-size: 0.85rem;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .add-line-btn:hover { border-color: var(--accent); color: var(--accent); background: rgba(37,99,235,0.05); }
+
+    /* DIVIDER */
+    .divider { border: none; border-top: 1px solid var(--border); margin: 1.5rem 0; }
+
+    /* ACTION BUTTONS */
+    .actions { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1.5rem; }
+    .btn-primary {
+      padding: 1rem; background: var(--accent);
+      border: none; border-radius: 12px; color: white;
+      font-family: inherit; font-size: 0.95rem; font-weight: 700;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .btn-primary:hover { background: #1d4ed8; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(37,99,235,0.3); }
+    .btn-secondary {
+      padding: 1rem; background: var(--card);
+      border: 1px solid var(--border); border-radius: 12px; color: var(--text);
+      font-family: inherit; font-size: 0.95rem; font-weight: 700;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .btn-secondary:hover { border-color: var(--accent2); color: var(--accent2); }
+
+    /* UPSELL CARD */
+    .upsell {
+      margin-top: 1.5rem; padding: 1.25rem;
+      background: linear-gradient(135deg, rgba(16,185,129,0.08), rgba(37,99,235,0.05));
+      border: 1px solid rgba(16,185,129,0.2); border-radius: 14px;
+    }
+    .upsell p { font-size: 0.78rem; color: var(--text); line-height: 1.5; }
+    .upsell strong { color: var(--accent2); }
+    .upsell input[type=email] { margin: 0.75rem 0 0.5rem; }
+    .upsell .btn-upsell {
+      width: 100%; padding: 0.75rem;
+      background: var(--accent2); border: none; border-radius: 10px;
+      color: white; font-family: inherit; font-weight: 700;
+      cursor: pointer; font-size: 0.85rem;
+    }
+
+    /* PREVIEW PANEL */
+    .preview-panel {
+      background: white;
+      border-radius: 20px;
+      padding: 3rem;
+      color: #111;
+      position: sticky;
+      top: 90px;
+      max-height: calc(100vh - 120px);
+      overflow-y: auto;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    }
+    .inv-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 2.5rem; }
+    .inv-logo { font-size: 1.5rem; font-weight: 900; color: var(--accent); letter-spacing: -0.04em; }
+    .inv-meta { text-align: right; font-size: 0.8rem; color: #555; }
+    .inv-meta strong { font-size: 1.4rem; color: #111; display: block; }
+    .inv-parties { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem; }
+    .inv-from, .inv-to { font-size: 0.8rem; color: #444; line-height: 1.8; }
+    .inv-label { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em; color: #999; margin-bottom: 0.4rem; }
+    .inv-name { font-size: 1rem; font-weight: 700; color: #111; }
+    table { width: 100%; border-collapse: collapse; margin-bottom: 1.5rem; font-size: 0.82rem; }
+    th { background: #f3f4f6; padding: 0.6rem 0.8rem; text-align: left; font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; color: #666; }
+    td { padding: 0.6rem 0.8rem; border-bottom: 1px solid #e5e7eb; color: #333; }
+    .totals { margin-left: auto; width: 220px; font-size: 0.85rem; }
+    .total-row { display: flex; justify-content: space-between; padding: 0.35rem 0; color: #555; }
+    .total-final { display: flex; justify-content: space-between; padding: 0.6rem 0; border-top: 2px solid #111; font-weight: 900; font-size: 1.1rem; color: #111; }
+    .inv-footer { margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid #e5e7eb; font-size: 0.75rem; color: #999; text-align: center; }
+
+    /* PRINT STYLES */
+    @media print {
+      body { background: white !important; }
+      .form-panel, .topbar, .hero, .actions, .upsell { display: none !important; }
+      .app-layout { display: block; padding: 0; margin: 0; }
+      .preview-panel { 
+        box-shadow: none; border-radius: 0; max-height: none;
+        position: static; padding: 1cm;
+      }
+      @page { size: A4; margin: 0; }
+    }
+    @media (max-width: 768px) {
+      .app-layout { grid-template-columns: 1fr; }
+      .preview-panel { position: static; max-height: none; }
+      .hero h1 { font-size: 2rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="logo">Maker<span>Vault</span></div>
+    <button class="lang-btn" onclick="toggleLang()" id="lang-toggle">🇲🇽 Español</button>
+  </div>
+
+  <div class="hero">
+    <div class="badge" id="badge-text">FREE INVOICE GENERATOR</div>
+    <h1 id="hero-title">Create a <span>Professional Invoice</span><br>In 60 Seconds</h1>
+    <p id="hero-sub">No account. No watermark. No catch. Print or save as PDF instantly.</p>
+  </div>
+
+  <div class="app-layout">
+    <!-- FORM PANEL -->
+    <div class="form-panel">
+      <div class="section-title" id="lbl-your-info">Your Business Info</div>
+      <div class="two-col field-group">
+        <div>
+          <label id="lbl-name">Full Name / Business</label>
+          <input type="text" id="from-name" placeholder="Your Name or LLC" oninput="updatePreview()">
+        </div>
+        <div>
+          <label id="lbl-email">Email</label>
+          <input type="email" id="from-email" placeholder="you@email.com" oninput="updatePreview()">
+        </div>
+      </div>
+      <div class="field-group">
+        <label id="lbl-address">Address (optional)</label>
+        <input type="text" id="from-address" placeholder="City, State" oninput="updatePreview()">
+      </div>
+
+      <hr class="divider">
+      <div class="section-title" id="lbl-client-info">Client / Bill To</div>
+      <div class="two-col field-group">
+        <div>
+          <label id="lbl-client-name">Client Name</label>
+          <input type="text" id="to-name" placeholder="Client or Company" oninput="updatePreview()">
+        </div>
+        <div>
+          <label id="lbl-client-email">Client Email</label>
+          <input type="email" id="to-email" placeholder="client@email.com" oninput="updatePreview()">
+        </div>
+      </div>
+
+      <hr class="divider">
+      <div class="section-title" id="lbl-invoice-details">Invoice Details</div>
+      <div class="two-col field-group">
+        <div>
+          <label id="lbl-inv-num">Invoice #</label>
+          <input type="text" id="inv-num" value="INV-001" oninput="updatePreview()">
+        </div>
+        <div>
+          <label id="lbl-due-date">Due Date</label>
+          <input type="date" id="due-date" oninput="updatePreview()">
+        </div>
+      </div>
+
+      <hr class="divider">
+      <div class="section-title" id="lbl-line-items">Line Items</div>
+      <div class="line-item" style="font-size:0.7rem; font-weight:800; text-transform:uppercase; color:var(--muted); margin-bottom:0.3rem;">
+        <span id="lbl-desc">Description</span>
+        <span id="lbl-qty">Qty</span>
+        <span id="lbl-rate">Rate ($)</span>
+        <span></span>
+      </div>
+      <div class="line-items" id="line-items-container"></div>
+      <button class="add-line-btn" onclick="addLine()" id="btn-add-line">+ Add Line Item</button>
+
+      <hr class="divider">
+      <div class="section-title" id="lbl-tax-notes">Tax & Notes</div>
+      <div class="two-col field-group">
+        <div>
+          <label id="lbl-tax">Tax Rate (%)</label>
+          <input type="number" id="tax-rate" placeholder="8.25" value="0" oninput="updatePreview()">
+        </div>
+        <div>
+          <label id="lbl-currency">Currency</label>
+          <select id="currency" onchange="updatePreview()">
+            <option value="$">USD ($)</option>
+            <option value="€">EUR (€)</option>
+            <option value="£">GBP (£)</option>
+            <option value="MXN$">MXN (MXN$)</option>
+          </select>
+        </div>
+      </div>
+      <div class="field-group">
+        <label id="lbl-notes">Notes / Payment Terms</label>
+        <textarea id="notes" rows="2" placeholder="e.g. Payment due within 15 days. Thank you!" oninput="updatePreview()"></textarea>
+      </div>
+
+      <div class="actions">
+        <button class="btn-secondary" onclick="window.print()" id="btn-print">🖨️ Print / Save PDF</button>
+        <button class="btn-primary" onclick="resetForm()" id="btn-reset">🔄 New Invoice</button>
+      </div>
+
+      <!-- UPSELL -->
+      <div class="upsell" id="upsell-box">
+        <p id="upsell-text"><strong>Want unlimited invoices + auto-send?</strong> Get the <strong>Maker Vault Pro</strong> system — client tracking, recurring billing, and tax reports. Join 200+ freelancers.</p>
+        <input type="email" id="upsell-email" placeholder="your@email.com">
+        <button class="btn-upsell" onclick="submitUpsell()" id="btn-upsell">Get Early Access — Free</button>
+      </div>
+    </div>
+
+    <!-- INVOICE PREVIEW -->
+    <div class="preview-panel" id="invoice-preview">
+      <div class="inv-header">
+        <div>
+          <div class="inv-logo" id="prev-from-name">Your Business</div>
+          <div style="font-size:0.78rem; color:#777; margin-top:0.25rem;" id="prev-from-email"></div>
+          <div style="font-size:0.78rem; color:#777;" id="prev-from-address"></div>
+        </div>
+        <div class="inv-meta">
+          <strong id="prev-inv-title">INVOICE</strong>
+          <div id="prev-inv-num"># INV-001</div>
+          <div id="prev-due-date" style="margin-top:0.25rem;"></div>
+        </div>
+      </div>
+
+      <div class="inv-parties">
+        <div class="inv-from">
+          <div class="inv-label" id="lbl-billed-to">Billed To</div>
+          <div class="inv-name" id="prev-to-name">Client Name</div>
+          <div id="prev-to-email"></div>
+        </div>
+        <div class="inv-to">
+          <div class="inv-label" id="lbl-date">Date</div>
+          <div class="inv-name" id="prev-date"></div>
+        </div>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th id="th-desc">Description</th>
+            <th id="th-qty">Qty</th>
+            <th id="th-rate">Rate</th>
+            <th id="th-amount">Amount</th>
+          </tr>
+        </thead>
+        <tbody id="prev-line-items"></tbody>
+      </table>
+
+      <div class="totals">
+        <div class="total-row"><span id="lbl-subtotal">Subtotal</span><span id="prev-subtotal">$0.00</span></div>
+        <div class="total-row" id="tax-row"><span id="lbl-tax-total">Tax</span><span id="prev-tax">$0.00</span></div>
+        <div class="total-final"><span id="lbl-total">TOTAL</span><span id="prev-total">$0.00</span></div>
+      </div>
+
+      <div class="inv-footer">
+        <div id="prev-notes"></div>
+        <div style="margin-top:0.75rem; color:#bbb;" id="prev-footer-brand">Generated with MakerVault.io — Free Invoice Tool</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const strings = {
+      en: {
+        badge: 'FREE INVOICE GENERATOR',
+        heroTitle: 'Create a <span style="color:#2563eb">Professional Invoice</span><br>In 60 Seconds',
+        heroSub: 'No account. No watermark. No catch. Print or save as PDF instantly.',
+        yourInfo: 'Your Business Info',
+        lblName: 'Full Name / Business',
+        lblEmail: 'Email',
+        lblAddress: 'Address (optional)',
+        clientInfo: 'Client / Bill To',
+        lblClientName: 'Client Name',
+        lblClientEmail: 'Client Email',
+        invDetails: 'Invoice Details',
+        lblInvNum: 'Invoice #',
+        lblDueDate: 'Due Date',
+        lineItems: 'Line Items',
+        lblDesc: 'Description',
+        lblQty: 'Qty',
+        lblRate: 'Rate ($)',
+        btnAddLine: '+ Add Line Item',
+        taxNotes: 'Tax & Notes',
+        lblTax: 'Tax Rate (%)',
+        lblCurrency: 'Currency',
+        lblNotes: 'Notes / Payment Terms',
+        btnPrint: '🖨️ Print / Save PDF',
+        btnReset: '🔄 New Invoice',
+        upsell: '<strong>Want unlimited invoices + auto-send?</strong> Get the <strong>Maker Vault Pro</strong> system — client tracking, recurring billing, and tax reports. Join 200+ freelancers.',
+        btnUpsell: 'Get Early Access — Free',
+        billedTo: 'Billed To',
+        date: 'Date',
+        thDesc: 'Description', thQty: 'Qty', thRate: 'Rate', thAmount: 'Amount',
+        subtotal: 'Subtotal', taxTotal: 'Tax', total: 'TOTAL',
+        invoiceTitle: 'INVOICE',
+        footerBrand: 'Generated with MakerVault.io — Free Invoice Tool',
+        langBtn: '🇲🇽 Español',
+        notesPlaceholder: 'e.g. Payment due within 15 days. Thank you!'
+      },
+      es: {
+        badge: 'GENERADOR DE FACTURAS GRATIS',
+        heroTitle: 'Crea una <span style="color:#2563eb">Factura Profesional</span><br>En 60 Segundos',
+        heroSub: 'Sin cuenta. Sin marca de agua. Sin trampa. Imprime o guarda como PDF al instante.',
+        yourInfo: 'Tu Información de Negocio',
+        lblName: 'Nombre / Empresa',
+        lblEmail: 'Correo Electrónico',
+        lblAddress: 'Dirección (opcional)',
+        clientInfo: 'Cliente / Facturar A',
+        lblClientName: 'Nombre del Cliente',
+        lblClientEmail: 'Correo del Cliente',
+        invDetails: 'Datos de la Factura',
+        lblInvNum: 'Número de Factura',
+        lblDueDate: 'Fecha de Vencimiento',
+        lineItems: 'Conceptos',
+        lblDesc: 'Descripción',
+        lblQty: 'Cant.',
+        lblRate: 'Precio ($)',
+        btnAddLine: '+ Agregar Concepto',
+        taxNotes: 'Impuesto y Notas',
+        lblTax: 'Tasa de Impuesto (%)',
+        lblCurrency: 'Moneda',
+        lblNotes: 'Notas / Condiciones de Pago',
+        btnPrint: '🖨️ Imprimir / Guardar PDF',
+        btnReset: '🔄 Nueva Factura',
+        upsell: '<strong>¿Quieres facturas ilimitadas + envío automático?</strong> Obtén el sistema <strong>Maker Vault Pro</strong> — seguimiento de clientes, facturación recurrente e informes fiscales.',
+        btnUpsell: 'Acceso Anticipado — Gratis',
+        billedTo: 'Facturar A',
+        date: 'Fecha',
+        thDesc: 'Descripción', thQty: 'Cant.', thRate: 'Precio', thAmount: 'Total',
+        subtotal: 'Subtotal', taxTotal: 'Impuesto', total: 'TOTAL',
+        invoiceTitle: 'FACTURA',
+        footerBrand: 'Generado con MakerVault.io — Herramienta de Facturación Gratis',
+        langBtn: '🇺🇸 English',
+        notesPlaceholder: 'Ej. Pago a los 15 días. ¡Gracias!'
+      }
+    };
+
+    let lang = 'en';
+    let lineItems = [];
+
+    function toggleLang() {
+      lang = lang === 'en' ? 'es' : 'en';
+      applyStrings();
+      updatePreview();
+    }
+
+    function applyStrings() {
+      const s = strings[lang];
+      document.getElementById('html-root').lang = lang;
+      document.getElementById('badge-text').textContent = s.badge;
+      document.getElementById('hero-title').innerHTML = s.heroTitle;
+      document.getElementById('hero-sub').textContent = s.heroSub;
+      document.getElementById('lbl-your-info').textContent = s.yourInfo;
+      document.getElementById('lbl-name').textContent = s.lblName;
+      document.getElementById('lbl-email').textContent = s.lblEmail;
+      document.getElementById('lbl-address').textContent = s.lblAddress;
+      document.getElementById('lbl-client-info').textContent = s.clientInfo;
+      document.getElementById('lbl-client-name').textContent = s.lblClientName;
+      document.getElementById('lbl-client-email').textContent = s.lblClientEmail;
+      document.getElementById('lbl-invoice-details').textContent = s.invDetails;
+      document.getElementById('lbl-inv-num').textContent = s.lblInvNum;
+      document.getElementById('lbl-due-date').textContent = s.lblDueDate;
+      document.getElementById('lbl-line-items').textContent = s.lineItems;
+      document.getElementById('lbl-desc').textContent = s.lblDesc;
+      document.getElementById('lbl-qty').textContent = s.lblQty;
+      document.getElementById('lbl-rate').textContent = s.lblRate;
+      document.getElementById('btn-add-line').textContent = s.btnAddLine;
+      document.getElementById('lbl-tax-notes').textContent = s.taxNotes;
+      document.getElementById('lbl-tax').textContent = s.lblTax;
+      document.getElementById('lbl-currency').textContent = s.lblCurrency;
+      document.getElementById('lbl-notes').textContent = s.lblNotes;
+      document.getElementById('notes').placeholder = s.notesPlaceholder;
+      document.getElementById('btn-print').textContent = s.btnPrint;
+      document.getElementById('btn-reset').textContent = s.btnReset;
+      document.getElementById('upsell-text').innerHTML = s.upsell;
+      document.getElementById('btn-upsell').textContent = s.btnUpsell;
+      document.getElementById('lbl-billed-to').textContent = s.billedTo;
+      document.getElementById('lbl-date').textContent = s.date;
+      document.getElementById('th-desc').textContent = s.thDesc;
+      document.getElementById('th-qty').textContent = s.thQty;
+      document.getElementById('th-rate').textContent = s.thRate;
+      document.getElementById('th-amount').textContent = s.thAmount;
+      document.getElementById('lbl-subtotal').textContent = s.subtotal;
+      document.getElementById('lbl-tax-total').textContent = s.taxTotal;
+      document.getElementById('lbl-total').textContent = s.total;
+      document.getElementById('lang-toggle').textContent = s.langBtn;
+      document.getElementById('prev-inv-title').textContent = s.invoiceTitle;
+      document.getElementById('prev-footer-brand').textContent = s.footerBrand;
+      renderLineItemsUI();
+    }
+
+    function addLine() {
+      lineItems.push({ desc: '', qty: 1, rate: 0 });
+      renderLineItemsUI();
+      updatePreview();
+    }
+
+    function removeLine(i) {
+      lineItems.splice(i, 1);
+      renderLineItemsUI();
+      updatePreview();
+    }
+
+    function renderLineItemsUI() {
+      const container = document.getElementById('line-items-container');
+      container.innerHTML = '';
+      lineItems.forEach((item, i) => {
+        const row = document.createElement('div');
+        row.className = 'line-item';
+        row.innerHTML = `
+          <input type="text" value="${item.desc}" placeholder="${strings[lang].lblDesc}" oninput="lineItems[${i}].desc=this.value;updatePreview()">
+          <input type="number" value="${item.qty}" min="1" oninput="lineItems[${i}].qty=parseFloat(this.value)||0;updatePreview()">
+          <input type="number" value="${item.rate}" min="0" step="0.01" oninput="lineItems[${i}].rate=parseFloat(this.value)||0;updatePreview()">
+          <button class="del-btn" onclick="removeLine(${i})">✕</button>
+        `;
+        container.appendChild(row);
+      });
+    }
+
+    function updatePreview() {
+      const currency = document.getElementById('currency').value;
+      document.getElementById('prev-from-name').textContent = document.getElementById('from-name').value || 'Your Business';
+      document.getElementById('prev-from-email').textContent = document.getElementById('from-email').value;
+      document.getElementById('prev-from-address').textContent = document.getElementById('from-address').value;
+      document.getElementById('prev-to-name').textContent = document.getElementById('to-name').value || 'Client Name';
+      document.getElementById('prev-to-email').textContent = document.getElementById('to-email').value;
+      document.getElementById('prev-inv-num').textContent = '# ' + (document.getElementById('inv-num').value || 'INV-001');
+      const due = document.getElementById('due-date').value;
+      document.getElementById('prev-due-date').textContent = due ? 'Due: ' + due : '';
+      document.getElementById('prev-date').textContent = new Date().toLocaleDateString(lang === 'es' ? 'es-MX' : 'en-US', {year:'numeric',month:'long',day:'numeric'});
+
+      const tbody = document.getElementById('prev-line-items');
+      tbody.innerHTML = '';
+      let subtotal = 0;
+      lineItems.forEach(item => {
+        const amount = item.qty * item.rate;
+        subtotal += amount;
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td>${item.desc || '—'}</td><td>${item.qty}</td><td>${currency}${item.rate.toFixed(2)}</td><td>${currency}${amount.toFixed(2)}</td>`;
+        tbody.appendChild(tr);
+      });
+
+      const taxRate = parseFloat(document.getElementById('tax-rate').value) || 0;
+      const taxAmount = subtotal * (taxRate / 100);
+      const total = subtotal + taxAmount;
+
+      document.getElementById('prev-subtotal').textContent = currency + subtotal.toFixed(2);
+      document.getElementById('prev-tax').textContent = currency + taxAmount.toFixed(2);
+      document.getElementById('prev-total').textContent = currency + total.toFixed(2);
+      document.getElementById('tax-row').style.display = taxRate > 0 ? 'flex' : 'none';
+
+      const notes = document.getElementById('notes').value;
+      document.getElementById('prev-notes').textContent = notes;
+    }
+
+    function resetForm() {
+      ['from-name','from-email','from-address','to-name','to-email','notes'].forEach(id => document.getElementById(id).value = '');
+      document.getElementById('inv-num').value = 'INV-001';
+      document.getElementById('tax-rate').value = '0';
+      document.getElementById('due-date').value = '';
+      lineItems = [];
+      renderLineItemsUI();
+      updatePreview();
+    }
+
+    function submitUpsell() {
+      const email = document.getElementById('upsell-email').value;
+      if (!email) return;
+      document.getElementById('upsell-box').innerHTML = `<p style="color:#10b981; font-weight:700; text-align:center;">✓ ${lang === 'es' ? '¡Registrado! Te avisaremos pronto.' : "You're in! We'll be in touch soon."}</p>`;
+    }
+
+    // Init
+    const today = new Date();
+    const due = new Date(today); due.setDate(due.getDate() + 15);
+    document.getElementById('due-date').value = due.toISOString().split('T')[0];
+    addLine(); addLine();
+    applyStrings();
+    updatePreview();
+  </script>
+</body>
+</html>

@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@grpc/proto-loader": "^0.8.0",
+    "firebase-admin": "^13.7.0"
+  }
+}

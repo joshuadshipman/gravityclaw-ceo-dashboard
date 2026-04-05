@@ -1,0 +1,29 @@
+{
+  "series_a_pma": [
+    {"name": "JimmyonRelationships", "url": "https://www.youtube.com/@JimmyonRelationships/shorts", "category": "Relationships"},
+    {"name": "Tracy Marks", "url": "https://www.youtube.com/@DrTraceyMarks", "category": "Clinical Psychology"},
+    {"name": "Kenny Weiss", "url": "https://www.youtube.com/@kennyweiss", "category": "Self-Healing"},
+    {"name": "Chris Hughes", "url": "https://www.youtube.com/@chasehughesofficial", "category": "Tactical Psychology"},
+    {"name": "Jordan B. Peterson", "url": "https://www.youtube.com/@JordanBPeterson", "category": "Philosophy/Clinical"},
+    {"name": "HealthyGamerGG (Dr. K)", "url": "https://www.youtube.com/@HealthyGamerGG", "category": "Neurobiology"},
+    {"name": "How to ADHD", "url": "https://www.youtube.com/@HowtoADHD", "category": "Executive Function"},
+    {"name": "Andrew Huberman", "url": "https://www.youtube.com/@hubermanlab", "category": "Dopamine/Optimization"},
+    {"name": "Better Ideas", "url": "https://www.youtube.com/@BetterIdeas", "category": "Productivity"},
+    {"name": "The Minimalists", "url": "https://www.youtube.com/@TheMinimalists", "category": "Sensory Management"},
+    {"name": "DiploDuck", "url": "https://www.youtube.com/@diplomaduck", "category": "Tactical/PMA"},
+    {"name": "ManTalks", "url": "https://www.youtube.com/@ManTalks", "category": "Masculinity/Mental Health"},
+    {"name": "Trevor Carroll", "url": "https://www.youtube.com/@TrevorCarroll", "category": "Focus/Discipline"},
+    {"name": "Brene Brown", "url": "https://www.youtube.com/results?search_query=brene+brown", "category": "Vulnerability/Courage"}
+  ],
+  "corporate_ai": [
+    {"name": "Julian Goldie SEO", "url": "https://www.youtube.com/@JulianGoldieSEO", "category": "SEO/AI"},
+    {"name": "Itssssss_Jack", "url": "https://www.youtube.com/@Itssssss_Jack", "category": "AI Automation"},
+    {"name": "Nick Ponte", "url": "https://www.youtube.com/@NickPonte808", "category": "Agency Scale"},
+    {"name": "Sean Standberry", "url": "https://www.youtube.com/@SeanStandberry", "category": "Business Process"}
+  ],
+  "series_b_ttl": [
+    {"name": "Reyes Law", "url": "https://www.youtube.com/@reyeslaw", "category": "Legal Marketing"},
+    {"name": "Adam Erhart", "url": "https://www.youtube.com/@Adamerhartvideo", "category": "Marketing Strategy"},
+    {"name": "GetLeadBase", "url": "https://www.youtube.com/@getleadbase", "category": "Lead Gen Architecture"}
+  ]
+}

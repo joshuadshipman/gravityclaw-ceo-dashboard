@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en" id="html-root">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hook Engine — Free TikTok & Reels Script Generator | Generador de Scripts Virales</title>
+  <meta name="description" content="Generate viral TikTok and Reels scripts in seconds. 5 hook styles. English and Spanish. Free to use.">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #080810;
+      --surface: #0f0f1a;
+      --card: #1a1a2e;
+      --border: rgba(255,255,255,0.08);
+      --pink: #ff0050;
+      --cyan: #00f2ea;
+      --green: #10b981;
+      --text: #f0f6fc;
+      --muted: #7e8899;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family: 'Outfit', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+    .topbar {
+      background: rgba(8,8,16,0.95); border-bottom: 1px solid var(--border);
+      padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center;
+      position: sticky; top: 0; z-index: 100; backdrop-filter: blur(12px);
+    }
+    .logo { font-weight: 900; font-size: 1.2rem; background: linear-gradient(90deg, var(--pink), var(--cyan)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+    .lang-btn { background: var(--card); border: 1px solid var(--border); color: var(--text); padding: 0.4rem 1rem; border-radius: 20px; cursor: pointer; font-family: inherit; font-size: 0.8rem; font-weight: 700; }
+
+    .hero { text-align: center; padding: 4rem 2rem 2rem;
+      background: radial-gradient(ellipse at 50% 0%, rgba(255,0,80,0.08) 0%, rgba(0,242,234,0.04) 50%, transparent 70%); }
+    .tiktok-pill { display: inline-flex; align-items: center; gap: 0.5rem;
+      background: rgba(255,0,80,0.1); border: 1px solid rgba(255,0,80,0.2); color: var(--pink);
+      padding: 0.35rem 1rem; border-radius: 20px; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.08em; margin-bottom: 1.5rem; }
+    .hero h1 { font-size: 3rem; font-weight: 900; letter-spacing: -0.04em; line-height: 1.1; margin-bottom: 0.75rem; }
+    .hero h1 .grd { background: linear-gradient(90deg, var(--pink), var(--cyan)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+    .hero p { color: var(--muted); font-size: 1rem; max-width: 500px; margin: 0 auto; }
+
+    /* MAIN APP */
+    .app { max-width: 800px; margin: 2rem auto; padding: 0 2rem 5rem; }
+
+    /* HOOK STYLE SELECTOR */
+    .style-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.5rem; margin-bottom: 1.5rem; }
+    .style-btn {
+      padding: 0.75rem 0.5rem; background: var(--surface); border: 2px solid var(--border);
+      border-radius: 12px; color: var(--muted); cursor: pointer; font-family: inherit;
+      font-size: 0.75rem; font-weight: 700; text-align: center; transition: all 0.15s;
+    }
+    .style-btn:hover { border-color: var(--pink); color: var(--pink); }
+    .style-btn.active { border-color: var(--pink); background: rgba(255,0,80,0.08); color: var(--pink); }
+    .style-icon { font-size: 1.3rem; display: block; margin-bottom: 0.25rem; }
+
+    .form-panel { background: var(--surface); border: 1px solid var(--border); border-radius: 24px; padding: 2rem; }
+    .section-label { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); margin-bottom: 0.6rem; }
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.75rem; }
+    input, select, textarea {
+      width: 100%; padding: 0.8rem 1rem; background: var(--card);
+      border: 1px solid var(--border); border-radius: 10px; color: var(--text);
+      font-family: inherit; font-size: 0.9rem; transition: border-color 0.2s;
+    }
+    input:focus, select:focus, textarea:focus { outline: none; border-color: var(--pink); }
+    .field { margin-bottom: 1.25rem; }
+    .generate-btn {
+      width: 100%; padding: 1.1rem;
+      background: linear-gradient(90deg, var(--pink), #ff5c8a);
+      border: none; border-radius: 14px; color: white;
+      font-family: inherit; font-size: 1.05rem; font-weight: 900;
+      cursor: pointer; transition: all 0.2s;
+      box-shadow: 0 0 30px rgba(255,0,80,0.2);
+    }
+    .generate-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(255,0,80,0.35); }
+    .generate-btn.loading { opacity: 0.7; cursor: not-allowed; }
+
+    /* RESULTS */
+    .results { margin-top: 2rem; }
+    .result-card {
+      background: var(--surface); border: 1px solid rgba(255,0,80,0.2);
+      border-left: 4px solid var(--pink); border-radius: 16px; padding: 1.5rem;
+      margin-bottom: 1rem; transition: all 0.2s;
+    }
+    .result-card:hover { border-color: rgba(255,0,80,0.4); }
+    .hook-label { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em; color: var(--pink); margin-bottom: 0.75rem; }
+    .hook-text { font-size: 1.1rem; font-weight: 700; line-height: 1.5; margin-bottom: 1rem; }
+    .script-body { font-size: 0.88rem; color: var(--muted); line-height: 1.7; white-space: pre-line; }
+    .result-actions { display: flex; gap: 0.5rem; margin-top: 1rem; }
+    .action-btn {
+      padding: 0.45rem 0.9rem; background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border); border-radius: 8px; color: var(--muted);
+      font-family: inherit; font-size: 0.75rem; font-weight: 700; cursor: pointer; transition: all 0.15s;
+    }
+    .action-btn:hover { border-color: var(--cyan); color: var(--cyan); }
+
+    /* UPSELL */
+    .upsell {
+      margin-top: 2rem; padding: 1.5rem;
+      background: linear-gradient(135deg, rgba(255,0,80,0.06), rgba(0,242,234,0.04));
+      border: 1px solid rgba(255,0,80,0.15); border-radius: 16px; text-align: center;
+    }
+    .upsell h3 { font-weight: 900; margin-bottom: 0.4rem; }
+    .upsell p { font-size: 0.82rem; color: var(--muted); margin-bottom: 1rem; }
+    .upsell-form { display: flex; gap: 0.5rem; max-width: 380px; margin: 0 auto; }
+    .upsell-form input { flex:1; }
+    .upsell-form button { padding: 0.75rem 1.25rem; background: var(--pink); border: none; border-radius: 10px; color: white; font-weight: 700; cursor: pointer; font-family: inherit; white-space: nowrap; }
+
+    @media(max-width:600px) {
+      .style-grid { grid-template-columns: repeat(3,1fr); }
+      .two-col, .three-col { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 2rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="logo" id="logo-text">Hook Engine ⚡</div>
+    <button class="lang-btn" onclick="toggleLang()" id="lang-toggle">🇲🇽 Español</button>
+  </div>
+
+  <div class="hero">
+    <div class="tiktok-pill" id="badge-text">🎬 VIRAL SCRIPT GENERATOR — FREE</div>
+    <h1 id="hero-title">Stop Losing Viewers in<br><span class="grd">The First 3 Seconds.</span></h1>
+    <p id="hero-sub">Generate high-converting TikTok & Reels scripts in 10 seconds. No writing skills needed.</p>
+  </div>
+
+  <div class="app">
+    <!-- HOOK STYLE -->
+    <div class="section-label" id="style-label" style="margin-bottom:0.6rem;">Choose Your Hook Style</div>
+    <div class="style-grid" id="style-grid">
+      <button class="style-btn active" onclick="selectStyle(this,'angry')" id="s-angry"><span class="style-icon">😤</span> <span id="sl-angry">Angry Truth</span></button>
+      <button class="style-btn" onclick="selectStyle(this,'shock')" id="s-shock"><span class="style-icon">😱</span> <span id="sl-shock">Shocking Reveal</span></button>
+      <button class="style-btn" onclick="selectStyle(this,'curiosity')" id="s-curiosity"><span class="style-icon">🤫</span> <span id="sl-curiosity">Secret Method</span></button>
+      <button class="style-btn" onclick="selectStyle(this,'fear')" id="s-fear"><span class="style-icon">⏰</span> <span id="sl-fear">Cost of Waiting</span></button>
+      <button class="style-btn" onclick="selectStyle(this,'story')" id="s-story"><span class="style-icon">📖</span> <span id="sl-story">Story Loop</span></button>
+    </div>
+
+    <div class="form-panel">
+      <div class="two-col" style="margin-bottom:1.25rem;">
+        <div>
+          <div class="section-label" id="lbl-niche">Your Niche / Topic</div>
+          <input type="text" id="topic" placeholder="e.g. Car Insurance, Real Estate, Fitness">
+        </div>
+        <div>
+          <div class="section-label" id="lbl-audience">Target Audience</div>
+          <input type="text" id="audience" placeholder="e.g. Homeowners in Texas">
+        </div>
+      </div>
+      <div class="field">
+        <div class="section-label" id="lbl-product">What Are You Promoting?</div>
+        <input type="text" id="product" placeholder="e.g. Free insurance quote, coaching program, SaaS tool">
+      </div>
+      <div class="two-col" style="margin-bottom:1.5rem;">
+        <div>
+          <div class="section-label" id="lbl-platform">Platform</div>
+          <select id="platform">
+            <option value="tiktok">TikTok</option>
+            <option value="reels">Instagram Reels</option>
+            <option value="shorts">YouTube Shorts</option>
+          </select>
+        </div>
+        <div>
+          <div class="section-label" id="lbl-lang">Script Language</div>
+          <select id="script-lang">
+            <option value="en">English</option>
+            <option value="es">Español</option>
+          </select>
+        </div>
+      </div>
+      <button class="generate-btn" onclick="generateScript()" id="gen-btn">⚡ Generate My Script</button>
+    </div>
+
+    <!-- RESULTS -->
+    <div class="results" id="results-area" style="display:none;"></div>
+
+    <!-- UPSELL -->
+    <div class="upsell" id="upsell-box" style="display:none;">
+      <h3 id="upsell-title">🔥 Get 50 More Proven Hooks</h3>
+      <p id="upsell-desc">Subscribe to the weekly Hook Drop — 5 new viral scripts every Monday, matched to your niche. Free for 30 days.</p>
+      <div class="upsell-form">
+        <input type="email" id="upsell-email" placeholder="your@email.com">
+        <button onclick="submitUpsell()" id="btn-upsell">Get Hooks</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const S = {
+      en: {
+        badge: '🎬 VIRAL SCRIPT GENERATOR — FREE',
+        heroTitle: 'Stop Losing Viewers in<br><span class="grd">The First 3 Seconds.</span>',
+        heroSub: 'Generate high-converting TikTok & Reels scripts in 10 seconds.',
+        styleLabel: 'Choose Your Hook Style',
+        slAngry:'Angry Truth', slShock:'Shocking Reveal', slCuriosity:'Secret Method', slFear:'Cost of Waiting', slStory:'Story Loop',
+        lblNiche:'Your Niche / Topic', lblAudience:'Target Audience', lblProduct:'What Are You Promoting?',
+        lblPlatform:'Platform', lblLang:'Script Language',
+        genBtn:'⚡ Generate My Script', langBtn:'🇲🇽 Español',
+        upsellTitle:'🔥 Get 50 More Proven Hooks', upsellDesc:'Subscribe to the weekly Hook Drop — 5 new viral scripts every Monday, matched to your niche.',
+        btnUpsell:'Get Hooks',
+        hooks: {
+          angry: (t,a) => ({ hook:`STOP. What ${a} don't know about ${t} is costing them THOUSANDS. 😤`, body:`Here's the truth nobody in the ${t} industry wants you to know...\n\n[PAUSE — point to camera]\n\nMost ${a} are making this EXACT mistake:\n→ [State the common mistake]\n→ [Show the consequence]\n→ Here's what you should do instead: [Your solution]\n\nIf this helped, follow me. I share this every week. 👇` }),
+          shock: (t,a) => ({ hook:`WAIT. 9 out of 10 ${a} don't know this about ${t}. 😱`, body:`I was today years old when I found out that...\n\n[Your shocking fact about ${t}]\n\nAnd the CRAZIEST part?\n→ [Follow-up fact]\n→ [Why it matters to ${a}]\n\nSave this before you scroll. You'll need it. 💾` }),
+          curiosity: (t,a) => ({ hook:`The secret ${t} method that nobody is teaching ${a}... 🤫`, body:`I've helped over [X] ${a} with this ONE thing about ${t}.\n\nStep 1: [Action]\nStep 2: [Action]\nStep 3: [Result they'll see]\n\nThe best part? You can start TODAY with zero experience.\n\nComment "YES" if you want my free guide. ⬇️` }),
+          fear: (t,a) => ({ hook:`Every day you wait on ${t}, you're losing money. ⏰ Here's why.`, body:`If you're a ${a} and you haven't done this yet...\n\n[What they're losing by waiting]\n\n→ Month 1 of waiting: [Cost]\n→ Month 6 of waiting: [Cost]\n→ Month 12: [Dramatic cost]\n\nDon't be that person. Take action this week.\nLink in bio. 👆` }),
+          story: (t,a) => ({ hook:`3 years ago I had no idea how to handle ${t}. Now I help ${a} every day. Here's the story. 📖`, body:`It started when...\n\n[Your origin story — struggle]\n\nI tried everything. Nothing worked. Until I discovered...\n\n[The turning point with ${t}]\n\nNow I [Your result].\n\nIf I can do it, so can you. Follow for part 2. ➡️` })
+        },
+        esHooks: null
+      },
+      es: {
+        badge: '🎬 GENERADOR DE SCRIPTS VIRALES — GRATIS',
+        heroTitle: 'Deja de Perder Seguidores en<br><span class="grd">Los Primeros 3 Segundos.</span>',
+        heroSub: 'Genera scripts de alto impacto para TikTok y Reels en 10 segundos.',
+        styleLabel: 'Elige Tu Estilo de Hook',
+        slAngry:'La Verdad Enojada', slShock:'La Revelación', slCuriosity:'El Método Secreto', slFear:'El Costo de Esperar', slStory:'La Historia',
+        lblNiche:'Tu Nicho / Tema', lblAudience:'Audiencia Objetivo', lblProduct:'¿Qué Estás Promocionando?',
+        lblPlatform:'Plataforma', lblLang:'Idioma del Script',
+        genBtn:'⚡ Generar Mi Script', langBtn:'🇺🇸 English',
+        upsellTitle:'🔥 Obtén 50 Hooks Más Probados', upsellDesc:'Suscríbete al Hook Drop semanal — 5 nuevos scripts virales cada lunes, adaptados a tu nicho.',
+        btnUpsell:'Obtener Hooks',
+        hooks: {
+          angry: (t,a) => ({ hook:`ESPERA. Lo que ${a} no saben sobre ${t} les está costando MILES. 😤`, body:`Esta es la verdad que nadie en la industria de ${t} quiere que sepas...\n\n[PAUSA — apunta a la cámara]\n\nLa mayoría de ${a} están cometiendo ESTE error:\n→ [Describe el error común]\n→ [Muestra la consecuencia]\n→ Aquí está lo que deberías hacer: [Tu solución]\n\nSígueme si esto te ayudó. Comparto esto cada semana. 👇` }),
+          shock: (t,a) => ({ hook:`ESPERA. 9 de cada 10 ${a} no saben esto sobre ${t}. 😱`, body:`Hoy me enteré de que...\n\n[Tu dato impactante sobre ${t}]\n\n¿Y la parte más loca?\n→ [Dato de seguimiento]\n→ [Por qué importa a ${a}]\n\nGuarda esto antes de continuar. Lo vas a necesitar. 💾` }),
+          curiosity: (t,a) => ({ hook:`El método secreto de ${t} que nadie le enseña a ${a}... 🤫`, body:`He ayudado a más de [X] ${a} con UNA sola cosa sobre ${t}.\n\nPaso 1: [Acción]\nPaso 2: [Acción]\nPaso 3: [Resultado]\n\n¿Lo mejor? Puedes empezar HOY sin experiencia previa.\n\nComenta "SÍ" si quieres mi guía gratis. ⬇️` }),
+          fear: (t,a) => ({ hook:`Cada día que esperas con ${t}, estás perdiendo dinero. ⏰ Aquí está el porqué.`, body:`Si eres ${a} y todavía no has hecho esto...\n\n[Lo que están perdiendo por esperar]\n\n→ Mes 1 de espera: [Costo]\n→ Mes 6 de espera: [Costo]\n→ Mes 12: [Costo dramático]\n\nNo seas esa persona. Actúa esta semana.\nLink en bio. 👆` }),
+          story: (t,a) => ({ hook:`Hace 3 años no sabía nada sobre ${t}. Ahora ayudo a ${a} todos los días. Esta es mi historia. 📖`, body:`Todo comenzó cuando...\n\n[Tu historia de origen — la lucha]\n\nLo intenté todo. Nada funcionó. Hasta que descubrí...\n\n[El punto de inflexión con ${t} ]\n\nAhora [Tu resultado].\n\nSi yo pude, tú también puedes. Sígueme para la parte 2. ➡️` })
+        }
+      }
+    };
+
+    let lang = 'en';
+    let selectedStyle = 'angry';
+    let generationCount = 0;
+
+    function toggleLang() { lang = lang==='en'?'es':'en'; applyStrings(); }
+    function selectStyle(el, style) {
+      document.querySelectorAll('.style-btn').forEach(b => b.classList.remove('active'));
+      el.classList.add('active');
+      selectedStyle = style;
+    }
+
+    function applyStrings() {
+      const s = S[lang];
+      document.getElementById('html-root').lang = lang;
+      document.getElementById('badge-text').textContent = s.badge;
+      document.getElementById('hero-title').innerHTML = s.heroTitle;
+      document.getElementById('hero-sub').textContent = s.heroSub;
+      document.getElementById('style-label').textContent = s.styleLabel;
+      document.getElementById('sl-angry').textContent = s.slAngry;
+      document.getElementById('sl-shock').textContent = s.slShock;
+      document.getElementById('sl-curiosity').textContent = s.slCuriosity;
+      document.getElementById('sl-fear').textContent = s.slFear;
+      document.getElementById('sl-story').textContent = s.slStory;
+      document.getElementById('lbl-niche').textContent = s.lblNiche;
+      document.getElementById('lbl-audience').textContent = s.lblAudience;
+      document.getElementById('lbl-product').textContent = s.lblProduct;
+      document.getElementById('lbl-platform').textContent = s.lblPlatform;
+      document.getElementById('lbl-lang').textContent = s.lblLang;
+      document.getElementById('gen-btn').textContent = s.genBtn;
+      document.getElementById('lang-toggle').textContent = s.langBtn;
+      document.getElementById('upsell-title').textContent = s.upsellTitle;
+      document.getElementById('upsell-desc').textContent = s.upsellDesc;
+      document.getElementById('btn-upsell').textContent = s.btnUpsell;
+      document.getElementById('upsell-email').placeholder = lang==='es'?'tu@correo.com':'your@email.com';
+    }
+
+    function generateScript() {
+      const topic = document.getElementById('topic').value.trim() || (lang==='es'?'tu tema':'your topic');
+      const audience = document.getElementById('audience').value.trim() || (lang==='es'?'tu audiencia':'your audience');
+      const scriptLang = document.getElementById('script-lang').value;
+      const s = S[scriptLang] || S.en;
+      const btn = document.getElementById('gen-btn');
+
+      btn.classList.add('loading');
+      btn.textContent = lang==='es'?'Generando...':'Generating...';
+
+      setTimeout(() => {
+        btn.classList.remove('loading');
+        btn.textContent = S[lang].genBtn;
+
+        const result = s.hooks[selectedStyle](topic, audience);
+        const area = document.getElementById('results-area');
+        area.style.display = 'block';
+
+        const card = document.createElement('div');
+        card.className = 'result-card';
+        card.innerHTML = `
+          <div class="hook-label">${lang==='es'?'🎬 TU HOOK':'🎬 YOUR HOOK'}</div>
+          <div class="hook-text">${result.hook}</div>
+          <div class="hook-label" style="margin-top:1rem; color:var(--cyan);">${lang==='es'?'📝 SCRIPT COMPLETO':'📝 FULL SCRIPT'}</div>
+          <div class="script-body">${result.body}</div>
+          <div class="result-actions">
+            <button class="action-btn" onclick="copyScript(this)">${lang==='es'?'📋 Copiar':'📋 Copy'}</button>
+            <button class="action-btn" onclick="this.closest('.result-card').remove()">${lang==='es'?'🗑 Eliminar':'🗑 Remove'}</button>
+          </div>
+        `;
+        area.insertBefore(card, area.firstChild);
+
+        generationCount++;
+        if (generationCount >= 2) {
+          document.getElementById('upsell-box').style.display = 'block';
+        }
+      }, 800);
+    }
+
+    function copyScript(btn) {
+      const card = btn.closest('.result-card');
+      const text = card.querySelector('.hook-text').textContent + '\n\n' + card.querySelector('.script-body').textContent;
+      navigator.clipboard.writeText(text).then(() => { btn.textContent = '✓ Copied!'; setTimeout(() => btn.textContent = lang==='es'?'📋 Copiar':'📋 Copy', 2000); });
+    }
+
+    function submitUpsell() {
+      const e = document.getElementById('upsell-email').value;
+      if (!e) return;
+      document.getElementById('upsell-box').innerHTML = `<p style="color:#10b981; font-weight:700; text-align:center; padding:1rem;">✓ ${lang==='es'?'¡Registrado! Revisa tu correo.':'You\'re in! Check your email.'}</p>`;
+    }
+
+    applyStrings();
+  </script>
+</body>
+</html>

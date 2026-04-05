@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en" id="html-root">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Seguro Fácil — Cotiza tu Seguro de Auto en 60 Segundos | Free Auto Insurance Quote</title>
+  <meta name="description" content="Compara seguros de auto en Texas, Florida y California. 100% en Español. Get free auto insurance quotes in 60 seconds. No commitment.">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0f1e;
+      --surface: #0f1629;
+      --card: #1a2035;
+      --border: rgba(255,255,255,0.08);
+      --accent: #f59e0b;
+      --blue: #3b82f6;
+      --green: #10b981;
+      --text: #f0f6fc;
+      --muted: #8b949e;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family: 'Outfit', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+    .topbar {
+      background: rgba(10,15,30,0.95); border-bottom: 1px solid var(--border);
+      padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center;
+      position: sticky; top: 0; z-index: 100; backdrop-filter: blur(12px);
+    }
+    .logo { font-weight: 900; font-size: 1.3rem; letter-spacing: -0.03em; }
+    .logo span { color: var(--accent); }
+    .lang-btn {
+      background: var(--card); border: 1px solid var(--border);
+      color: var(--text); padding: 0.4rem 1rem; border-radius: 20px;
+      cursor: pointer; font-family: inherit; font-size: 0.8rem; font-weight: 700;
+    }
+
+    /* HERO */
+    .hero {
+      padding: 5rem 2rem 3rem;
+      background: linear-gradient(135deg, rgba(245,158,11,0.06) 0%, rgba(59,130,246,0.04) 100%);
+      text-align: center; position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 50% 0%, rgba(245,158,11,0.1) 0%, transparent 60%);
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      background: rgba(245,158,11,0.1); color: var(--accent);
+      padding: 0.4rem 1rem; border-radius: 20px;
+      font-size: 0.75rem; font-weight: 800; letter-spacing: 0.08em; margin-bottom: 1.5rem;
+      border: 1px solid rgba(245,158,11,0.2);
+    }
+    .hero h1 { font-size: 3.5rem; font-weight: 900; letter-spacing: -0.04em; line-height: 1.1; margin-bottom: 1rem; position: relative; }
+    .hero h1 .accent { color: var(--accent); }
+    .hero h1 .blue { color: var(--blue); }
+    .hero p { font-size: 1.1rem; color: var(--muted); max-width: 560px; margin: 0 auto 2rem; position: relative; }
+
+    /* TRUST BADGES */
+    .trust-row { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; margin-bottom: 3rem; }
+    .trust-item { display: flex; align-items: center; gap: 0.4rem; font-size: 0.8rem; color: var(--muted); }
+    .trust-item span { color: var(--green); font-weight: 700; }
+
+    /* QUOTE FORM */
+    .quote-container { max-width: 680px; margin: 0 auto; padding: 0 2rem; position: relative; z-index: 1; }
+    .quote-card {
+      background: var(--surface); border: 1px solid rgba(245,158,11,0.2);
+      border-radius: 24px; padding: 2.5rem; box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    }
+    .step-indicator { display: flex; gap: 0.5rem; margin-bottom: 2rem; }
+    .step { flex: 1; height: 4px; border-radius: 2px; background: var(--border); transition: background 0.3s; }
+    .step.active { background: var(--accent); }
+    .step.done { background: var(--green); }
+
+    .form-step { display: none; }
+    .form-step.active { display: block; }
+
+    .step-title { font-size: 1.1rem; font-weight: 800; margin-bottom: 0.4rem; }
+    .step-sub { font-size: 0.85rem; color: var(--muted); margin-bottom: 1.5rem; }
+
+    .option-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem; margin-bottom: 1.5rem; }
+    .option-btn {
+      padding: 1rem; background: var(--card); border: 2px solid var(--border);
+      border-radius: 12px; color: var(--text); cursor: pointer; font-family: inherit;
+      font-size: 0.9rem; font-weight: 600; text-align: center;
+      transition: all 0.15s;
+    }
+    .option-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .option-btn.selected { border-color: var(--accent); background: rgba(245,158,11,0.08); color: var(--accent); }
+
+    .field-group { margin-bottom: 1.25rem; }
+    label { display: block; font-size: 0.78rem; font-weight: 700; color: var(--muted); margin-bottom: 0.4rem; text-transform: uppercase; letter-spacing: 0.06em; }
+    input, select {
+      width: 100%; padding: 0.85rem 1rem;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 10px; color: var(--text); font-family: inherit; font-size: 0.95rem;
+    }
+    input:focus, select:focus { outline: none; border-color: var(--accent); }
+
+    .btn-next {
+      width: 100%; padding: 1.1rem;
+      background: var(--accent); color: #000;
+      border: none; border-radius: 12px;
+      font-family: inherit; font-size: 1rem; font-weight: 900;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .btn-next:hover { background: #d97706; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(245,158,11,0.3); }
+    .btn-back { background: none; border: none; color: var(--muted); cursor: pointer; font-family: inherit; font-size: 0.85rem; margin-top: 1rem; display: block; text-align: center; }
+
+    /* RESULT */
+    .result-card {
+      background: linear-gradient(135deg, rgba(16,185,129,0.08), rgba(59,130,246,0.05));
+      border: 1px solid rgba(16,185,129,0.2); border-radius: 16px; padding: 2rem;
+      text-align: center; margin-top: 1.5rem;
+    }
+    .result-price { font-size: 3.5rem; font-weight: 900; color: var(--green); }
+    .result-sub { color: var(--muted); font-size: 0.85rem; margin: 0.5rem 0 1.5rem; }
+    .call-btn {
+      display: block; width: 100%; padding: 1.25rem;
+      background: var(--green); border: none; border-radius: 14px;
+      color: white; font-family: inherit; font-size: 1.1rem; font-weight: 900;
+      cursor: pointer; text-decoration: none; text-align: center;
+      transition: all 0.2s; margin-bottom: 0.75rem;
+    }
+    .call-btn:hover { background: #059669; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(16,185,129,0.3); }
+    .disclaimer { font-size: 0.7rem; color: var(--muted); line-height: 1.5; margin-top: 1rem; }
+
+    /* HOW IT WORKS */
+    .how { max-width: 900px; margin: 5rem auto; padding: 0 2rem; text-align: center; }
+    .how h2 { font-size: 2rem; font-weight: 900; margin-bottom: 3rem; }
+    .steps-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+    .step-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 2rem; }
+    .step-num { font-size: 2rem; font-weight: 900; color: var(--accent); margin-bottom: 0.75rem; }
+    .step-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .step-card p { font-size: 0.82rem; color: var(--muted); line-height: 1.6; }
+
+    @media(max-width:600px) {
+      .hero h1 { font-size: 2.2rem; }
+      .option-grid { grid-template-columns: 1fr; }
+      .steps-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="logo">Seguro<span>Fácil</span></div>
+    <button class="lang-btn" onclick="toggleLang()" id="lang-toggle">🇺🇸 English</button>
+  </div>
+
+  <div class="hero">
+    <div class="hero-badge" id="badge-text">🛡️ SEGURO DE AUTO — SIN COMPROMISO</div>
+    <h1 id="hero-title">Tu <span class="accent">Seguro de Auto</span><br>En <span class="blue">60 Segundos</span></h1>
+    <p id="hero-sub">Compara las mejores tarifas en Texas, Florida y California. 100% gratis. Sin compromisos. Sin inglés requerido.</p>
+
+    <div class="trust-row">
+      <div class="trust-item">✅ <span id="trust1">Sin compromiso</span></div>
+      <div class="trust-item">🔒 <span id="trust2">100% Seguro</span></div>
+      <div class="trust-item">📞 <span id="trust3">Agente en Español</span></div>
+      <div class="trust-item">⏱️ <span id="trust4">Menos de 60 seg</span></div>
+    </div>
+  </div>
+
+  <div class="quote-container">
+    <div class="quote-card">
+      <div class="step-indicator">
+        <div class="step active" id="s1"></div>
+        <div class="step" id="s2"></div>
+        <div class="step" id="s3"></div>
+        <div class="step" id="s4"></div>
+      </div>
+
+      <!-- STEP 1: Vehicle -->
+      <div class="form-step active" id="step1">
+        <div class="step-title" id="step1-title">¿Qué tipo de vehículo tienes?</div>
+        <div class="step-sub" id="step1-sub">Selecciona una opción para continuar</div>
+        <div class="option-grid" id="vehicle-options">
+          <button class="option-btn" onclick="selectOption(this,'vehicle','sedan')" id="v-sedan">🚗 Sedán / Compacto</button>
+          <button class="option-btn" onclick="selectOption(this,'vehicle','suv')" id="v-suv">🚙 SUV / Camioneta</button>
+          <button class="option-btn" onclick="selectOption(this,'vehicle','truck')" id="v-truck">🛻 Pickup / Truck</button>
+          <button class="option-btn" onclick="selectOption(this,'vehicle','van')" id="v-van">🚐 Van / Minivan</button>
+        </div>
+        <button class="btn-next" onclick="nextStep(2)" id="btn-next1">Siguiente →</button>
+      </div>
+
+      <!-- STEP 2: Coverage -->
+      <div class="form-step" id="step2">
+        <div class="step-title" id="step2-title">¿Qué cobertura necesitas?</div>
+        <div class="step-sub" id="step2-sub">Puedes cambiarlo después con el agente</div>
+        <div class="option-grid">
+          <button class="option-btn" onclick="selectOption(this,'coverage','liability')">⚖️ Solo Responsabilidad Civil</button>
+          <button class="option-btn" onclick="selectOption(this,'coverage','full')">🛡️ Cobertura Total</button>
+          <button class="option-btn" onclick="selectOption(this,'coverage','sr22')">📋 SR-22</button>
+          <button class="option-btn" onclick="selectOption(this,'coverage','notSure')">🤷 No estoy seguro</button>
+        </div>
+        <button class="btn-next" onclick="nextStep(3)" id="btn-next2">Siguiente →</button>
+        <button class="btn-back" onclick="nextStep(1)">← Atrás</button>
+      </div>
+
+      <!-- STEP 3: Situation -->
+      <div class="form-step" id="step3">
+        <div class="step-title" id="step3-title">¿Cuál es tu situación actual?</div>
+        <div class="step-sub" id="step3-sub">Esta información nos ayuda a encontrar tu mejor tarifa</div>
+        <div class="option-grid">
+          <button class="option-btn" onclick="selectOption(this,'situation','noInsurance')">❌ Sin seguro ahora</button>
+          <button class="option-btn" onclick="selectOption(this,'situation','switching')">🔄 Quiero cambiar de aseguradora</button>
+          <button class="option-btn" onclick="selectOption(this,'situation','newCar')">🆕 Carro nuevo</button>
+          <button class="option-btn" onclick="selectOption(this,'situation','renewal')">📅 Mi póliza vence pronto</button>
+        </div>
+        <button class="btn-next" onclick="nextStep(4)" id="btn-next3">Ver mi cotización →</button>
+        <button class="btn-back" onclick="nextStep(2)">← Atrás</button>
+      </div>
+
+      <!-- STEP 4: Contact -->
+      <div class="form-step" id="step4">
+        <div class="step-title" id="step4-title">¡Casi listo! ¿A dónde enviamos tu cotización?</div>
+        <div class="field-group">
+          <label id="lbl-name">Nombre</label>
+          <input type="text" id="lead-name" placeholder="Tu nombre completo">
+        </div>
+        <div class="field-group">
+          <label id="lbl-zip">Código Postal (ZIP)</label>
+          <input type="text" id="lead-zip" placeholder="77001" maxlength="5">
+        </div>
+        <div class="field-group">
+          <label id="lbl-phone">Teléfono</label>
+          <input type="tel" id="lead-phone" placeholder="(713) 555-0100">
+        </div>
+        <button class="btn-next" onclick="showResult()" id="btn-get-quote">🔍 Ver Mi Cotización Gratis</button>
+        <button class="btn-back" onclick="nextStep(3)">← Atrás</button>
+        <p style="font-size:0.7rem; color:var(--muted); text-align:center; margin-top:1rem;" id="tcpa-text">
+          Al enviar, aceptas recibir llamadas y SMS de agentes de seguros licenciados. Puedes cancelar en cualquier momento.
+        </p>
+      </div>
+
+      <!-- RESULT -->
+      <div class="form-step" id="result-step">
+        <div class="result-card">
+          <div style="font-size:0.8rem; color:var(--muted); margin-bottom:0.5rem;" id="result-label">Tu estimado mensual desde</div>
+          <div class="result-price" id="result-range">$47 — $89</div>
+          <div class="result-sub" id="result-desc">Basado en tu perfil. Un agente certificado te llamará para confirmar tu tarifa exacta.</div>
+          <a href="tel:+18005550100" class="call-btn" id="cta-call">📞 Hablar con un Agente Ahora — Gratis</a>
+          <div class="disclaimer" id="disclaimer-text">
+            Al llamar, conectarás con un agente de seguros licenciado. Este es un servicio de cotización gratuito. 
+            Operado por SeguroFácil / DubHajar Ventures LLC. Las tarifas finales dependen de la aseguradora.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <div class="how">
+    <h2 id="how-title">¿Cómo Funciona?</h2>
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-num">1</div>
+        <h3 id="how1-title">Cotiza en 60 Segundos</h3>
+        <p id="how1-desc">Responde 3 preguntas simples sobre tu vehículo y cobertura. Sin papeleo, sin complicaciones.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">2</div>
+        <h3 id="how2-title">Habla con un Agente</h3>
+        <p id="how2-desc">Un agente certificado, que habla español, revisará las mejores opciones contigo sin presión.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">3</div>
+        <h3 id="how3-title">¡Elige y Ahorra!</h3>
+        <p id="how3-desc">Compara opciones y elige el plan perfecto. La mayoría ahorra $50-$200 al mes al cambiar.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const S = {
+      es: {
+        badge: '🛡️ SEGURO DE AUTO — SIN COMPROMISO',
+        heroTitle: 'Tu <span style="color:#f59e0b">Seguro de Auto</span><br>En <span style="color:#3b82f6">60 Segundos</span>',
+        heroSub: 'Compara las mejores tarifas en Texas, Florida y California. 100% gratis. Sin compromisos. Sin inglés requerido.',
+        trust1:'Sin compromiso', trust2:'100% Seguro', trust3:'Agente en Español', trust4:'Menos de 60 seg',
+        langBtn: '🇺🇸 English',
+        resultLabel: 'Tu estimado mensual desde',
+        resultDesc: 'Basado en tu perfil. Un agente certificado te llamará para confirmar tu tarifa exacta.',
+        ctaCall: '📞 Hablar con un Agente Ahora — Gratis',
+        howTitle: '¿Cómo Funciona?'
+      },
+      en: {
+        badge: '🛡️ FREE AUTO INSURANCE QUOTE',
+        heroTitle: 'Your <span style="color:#f59e0b">Auto Insurance</span><br>In <span style="color:#3b82f6">60 Seconds</span>',
+        heroSub: 'Compare the best rates in Texas, Florida, and California. 100% free. No commitment.',
+        trust1:'No commitment', trust2:'100% Secure', trust3:'Bilingual Agents', trust4:'Under 60 seconds',
+        langBtn: '🇲🇽 Español',
+        resultLabel: 'Your estimated monthly rate from',
+        resultDesc: 'Based on your profile. A licensed agent will call to confirm your exact rate.',
+        ctaCall: '📞 Speak With an Agent Now — Free',
+        howTitle: 'How It Works?'
+      }
+    };
+
+    let lang = 'es';
+    let selections = {};
+
+    function toggleLang() { lang = lang === 'es' ? 'en' : 'es'; applyStrings(); }
+    function applyStrings() {
+      const s = S[lang];
+      document.getElementById('html-root').lang = lang;
+      document.getElementById('badge-text').textContent = s.badge;
+      document.getElementById('hero-title').innerHTML = s.heroTitle;
+      document.getElementById('hero-sub').textContent = s.heroSub;
+      ['trust1','trust2','trust3','trust4'].forEach(id => document.getElementById(id).textContent = s[id]);
+      document.getElementById('lang-toggle').textContent = s.langBtn;
+      document.getElementById('result-label').textContent = s.resultLabel;
+      document.getElementById('result-desc').textContent = s.resultDesc;
+      document.getElementById('cta-call').textContent = s.ctaCall;
+      document.getElementById('how-title').textContent = s.howTitle;
+    }
+
+    function selectOption(el, key, val) {
+      el.closest('.option-grid').querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+      el.classList.add('selected');
+      selections[key] = val;
+    }
+
+    let currentStep = 1;
+    function nextStep(n) {
+      document.getElementById('step' + currentStep).classList.remove('active');
+      [1,2,3,4].forEach(i => {
+        const s = document.getElementById('s' + i);
+        if (!s) return;
+        s.classList.remove('active','done');
+        if (i < n) s.classList.add('done');
+        if (i === n) s.classList.add('active');
+      });
+      const el = document.getElementById('step' + n);
+      if (el) { el.classList.add('active'); currentStep = n; }
+    }
+
+    function showResult() {
+      // TCPA: collect lead data
+      const name = document.getElementById('lead-name').value;
+      const zip = document.getElementById('lead-zip').value;
+      const phone = document.getElementById('lead-phone').value;
+      if (!phone) { alert(lang==='es'?'Por favor ingresa tu número de teléfono.':'Please enter your phone number.'); return; }
+
+      // In production: POST to webhook/GHL/Firestore here
+      const ranges = { liability: '$47 — $79', full: '$89 — $149', sr22: '$120 — $180', notSure: '$55 — $95' };
+      const range = ranges[selections.coverage] || '$47 — $89';
+      document.getElementById('result-range').textContent = range;
+
+      document.getElementById('step4').classList.remove('active');
+      document.getElementById('result-step').classList.add('active');
+      document.getElementById('s4').classList.remove('active'); document.getElementById('s4').classList.add('done');
+    }
+
+    applyStrings();
+  </script>
+</body>
+</html>

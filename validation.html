@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Validation Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .validation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        .validation-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 12px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .v-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.25rem;
+        }
+        .v-box {
+            background: rgba(0,0,0,0.2);
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 3px solid #8b5cf6;
+        }
+        .v-box.need { border-left-color: #f59e0b; }
+        .v-box.sellable { border-left-color: #10b981; }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container" style="max-width: 1400px; margin: 0 auto;">
+        <header class="topbar">
+            <div class="brand">
+                <a href="index.html" style="color: var(--text-muted); text-decoration: none; margin-right: 1rem; font-size: 1.5rem;">←</a>
+                <div class="logo"></div>
+                <h1>Product Validation Hub</h1>
+            </div>
+            <div class="metrics" style="display:flex; gap:1rem; align-items:center;">
+                <div class="metric"><span class="label">UAT Agent</span><span class="value" style="color: #10b981;">Online</span></div>
+            </div>
+        </header>
+
+        <div style="margin-bottom: 2rem;">
+            <p style="color: var(--text-secondary);">
+                Half-developed apps must prove their <strong>Business Need</strong> and define their <strong>Sellable Outcome</strong> before moving to production. The UAT Agent blocks deployments automatically if an app fails persona simulation.
+            </p>
+        </div>
+
+        <div class="validation-grid">
+            
+            <!-- Lead Qualifier -->
+            <div class="validation-card">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                    <h2 style="font-size: 1.25rem;">Lead Qualifier Chat</h2>
+                    <span class="badge" style="background: rgba(239, 68, 68, 0.1); color: #ef4444; border: 1px solid #ef4444;">Fails Context Check</span>
+                </div>
+                
+                <div class="v-box need">
+                    <div class="v-label">Business Need</div>
+                    <div style="font-size: 0.95rem;">Cost-Free Intake. Replacing expensive third-party CRM chat plugins (like Clio/HubSpot add-ons) with a native AI intake flow. Includes Phone Intake AI that can receive inbound calls, talk to the client, and request SMS damage photos directly.</div>
+                </div>
+
+                <div class="v-box sellable">
+                    <div class="v-label">Sellable MVP Item</div>
+                    <div style="font-size: 0.95rem;">A deployable JSON template & Firebase config that captures total-loss data. Value: $99/mo to small firms.</div>
+                    <div style="margin-top: 5px;"><a href="http://localhost:3002" target="_blank" style="color: #60a5fa; font-size: 0.85rem; text-decoration: underline;">Open Live App →</a></div>
+                </div>
+
+                <div style="margin-top: auto; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.05); display: flex; gap: 0.5rem; justify-content: space-between; align-items: center;">
+                    <span style="font-size: 0.8rem; color: var(--text-muted);">Triggers: Distressed Customer Persona</span>
+                    <button class="btn btn-outline" style="font-size: 0.8rem;">Run UAT Check</button>
+                </div>
+            </div>
+
+            <!-- Maker Vault -->
+            <div class="validation-card">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                    <h2 style="font-size: 1.25rem;">Maker Vault</h2>
+                    <span class="badge prototype">In Development</span>
+                </div>
+                
+                <div class="v-box need">
+                    <div class="v-label">Business Need</div>
+                    <div style="font-size: 0.95rem;">Professional quoting engine for craftsmen/agencies on Etsy/Upwork to calculate margins.</div>
+                </div>
+
+                <div class="v-box sellable">
+                    <div class="v-label">Sellable MVP Item</div>
+                    <div style="font-size: 0.95rem;">A standardized Spreadsheet Template and cost-calculation dashboard. Value: $49 One-time.</div>
+                    <div style="margin-top: 5px;"><a href="http://localhost:3000" target="_blank" style="color: #60a5fa; font-size: 0.85rem; text-decoration: underline;">Open Live App →</a></div>
+                </div>
+
+                <div style="margin-top: auto; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.05); display: flex; gap: 0.5rem; justify-content: space-between; align-items: center;">
+                    <span style="font-size: 0.8rem; color: var(--text-muted);">Triggers: Vendor Persona</span>
+                    <button class="btn btn-outline" style="font-size: 0.8rem;">Run UAT Check</button>
+                </div>
+            </div>
+
+            <!-- TikTok Gen -->
+            <div class="validation-card">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                    <h2 style="font-size: 1.25rem;">TikTok Gen API</h2>
+                    <span class="badge" style="background: rgba(16, 185, 129, 0.1); color: #10b981; border: 1px solid #10b981;">UAT Passed</span>
+                </div>
+                
+                <div class="v-box need">
+                    <div class="v-label">Business Need</div>
+                    <div style="font-size: 0.95rem;">Constant top-of-funnel inbound marketing without manual script writing.</div>
+                </div>
+
+                <div class="v-box sellable">
+                    <div class="v-label">Sellable MVP Item</div>
+                    <div style="font-size: 0.95rem;">A packaged JSON prompt injection API for creator agencies. Value: usage-based.</div>
+                    <div style="margin-top: 5px;"><a href="http://localhost:3001" target="_blank" style="color: #60a5fa; font-size: 0.85rem; text-decoration: underline;">Open Live App →</a></div>
+                </div>
+
+                <div style="margin-top: auto; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.05); display: flex; gap: 0.5rem; justify-content: space-between; align-items: center;">
+                    <span style="font-size: 0.8rem; color: var(--text-muted);">Triggers: Creator Persona</span>
+                    <button class="btn btn-outline" style="font-size: 0.8rem;">Run UAT Check</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>
