@@ -92,7 +92,7 @@
       </div>
       <div class="topbar-right" style="display:flex; align-items:center; gap:12px;">
         <a href="vc-intelligence-hub.html" class="kbtn" style="text-decoration:none; background:rgba(59,130,246,0.1); border:1px solid rgba(59,130,246,0.3); color:var(--blue); display:flex; align-items:center; gap:6px;" target="_blank">
-          <span>🧠</span> VC Intelligence Hub
+          <span>🧠</span> Signal Intelligence Hub
         </a>
         <div class="live-badge">AUTONOMOUS RUNNING</div>
       </div>
@@ -112,7 +112,7 @@
           <h4 style="margin: 0 0 1rem 0; border-bottom: 2px solid #6b7280; padding-bottom: 0.5rem; color: #9ca3af;">1. Draft Requests</h4>
           
           <div class="kanban-card" style="background: var(--bg-card); padding: 1rem; border-radius: 4px; border-left: 3px solid #6b7280; font-size: 0.85rem;">
-            <div style="font-weight: 600; margin-bottom: 0.25rem;">[TTL] Copart Market Alternative</div>
+            <div style="font-weight: 600; margin-bottom: 0.25rem;">[TTL] High-Velocity Inbound Pipeline</div>
             <div style="color: var(--text-muted); margin-bottom: 0.5rem;">Intake: Competitor Video Link.</div>
             <div style="color: #6b7280; font-size: 0.75rem;">Status: Drafting 5 core test questions.</div>
           </div>
@@ -560,16 +560,36 @@
             </div>
 
             <!-- Employee 4 -->
-            <div style="background:var(--bg-card); border: 1px solid rgba(16, 185, 129, 0.3); border-radius:12px; padding:1.5rem; border-top: 4px solid #10b981;">
-                <h3 style="color:#10b981; margin-top:0;">Nightly Intelligence Agent</h3>
-                <div style="font-size:0.8rem; color:var(--text-muted); margin-bottom:1rem;">Role: Passive market scraping & query extraction.</div>
+            <div style="background:var(--bg-card); border: 1px solid rgba(239, 68, 68, 0.3); border-radius:12px; padding:1.5rem; border-top: 4px solid #ef4444; opacity:0.6;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.5rem;">
+                  <h3 style="color:#ef4444; margin-top:0;">Nightly Intelligence Agent</h3>
+                  <div class="live-badge" style="background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid #ef4444;">DEAD / REPLACED</div>
+                </div>
+                <div style="font-size:0.8rem; color:var(--text-muted); margin-bottom:1rem;">Role: Passive market scraping & query extraction. Replaced by Deep Study & TTL Inbound agents.</div>
                 
                 <div style="display:grid; grid-template-columns: 120px 1fr; gap:0.5rem; font-size:0.8rem;">
-                    <strong style="color:var(--text-default);">Trigger:</strong> <span style="color:#10b981;">UTC 08:00 CRON</span>
+                    <strong style="color:var(--text-default);">Trigger:</strong> <span style="text-decoration:line-through;">UTC 08:00 CRON</span>
                     <strong style="color:var(--text-default);">Constraints:</strong> <span>Anti-bot proxy usage mandatory.</span>
-                    <strong style="color:var(--text-default);">Frequency:</strong> <span>Daily</span>
-                    <strong style="color:var(--text-default);">Output:</strong> <span>JSON Trend array for Hook Engine</span>
-                    <strong style="color:var(--text-default);">Quality Val:</strong> <span style="color:#f59e0b;">CLO Scrape Diff</span>
+                    <strong style="color:var(--text-default);">Frequency:</strong> <span>N/A</span>
+                    <strong style="color:var(--text-default);">Output:</strong> <span>N/A</span>
+                    <strong style="color:var(--text-default);">Quality Val:</strong> <span>N/A</span>
+                </div>
+            </div>
+
+            <!-- Employee 5 -->
+            <div style="background:var(--bg-card); border: 1px solid rgba(16, 185, 129, 0.3); border-radius:12px; padding:1.5rem; border-top: 4px solid #10b981;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.5rem;">
+                  <h3 style="color:#10b981; margin-top:0;">TTL SEO/GEO Agent (Inbound)</h3>
+                  <div class="live-badge" style="background:rgba(16,185,129,0.1); color:#10b981; border:1px solid #10b981;">ACTIVE</div>
+                </div>
+                <div style="font-size:0.8rem; color:var(--text-muted); margin-bottom:1rem;">Role: Generates structured, authoritative content capturing consumers in the "anxiety phase".</div>
+                
+                <div style="display:grid; grid-template-columns: 120px 1fr; gap:0.5rem; font-size:0.8rem;">
+                    <strong style="color:var(--text-default);">Trigger:</strong> <span style="color:#10b981;">Market Signal / Weekly Schedule</span>
+                    <strong style="color:var(--text-default);">Constraints:</strong> <span>Requires Iron Law Validation against live Search.</span>
+                    <strong style="color:var(--text-default);">Frequency:</strong> <span>Event-Driven</span>
+                    <strong style="color:var(--text-default);">Output:</strong> <span>AEO/MEO Content & Micro-pages</span>
+                    <strong style="color:var(--text-default);">Quality Val:</strong> <span style="color:#f59e0b;">CLO Two-Level Gate</span>
                 </div>
             </div>
 
@@ -602,7 +622,7 @@
             <li><strong style="color:#fff">Level 1 - Visual QA:</strong> Mobile responsiveness, alignment, box borders, and CSS grid constraints mapped against DHV Premium Aesthetics.</li>
             <li><strong style="color:#fff">Level 2 - Functional QA:</strong> Core mechanics must be demonstrated without server crashes (No API 400 errors or uncaught JS bugs).</li>
             <li><strong style="color:#fff">Rule:</strong> Agent <span style="color:var(--red);">MUST NOT</span> ask for CEO approval to fix their own failure. Automatically rollback or self-repair.</li>
-            <li><strong style="color:#fff">Rule:</strong> The output UI operates as a pristine, zero-trust Dashboard for VC demonstration. Everything must load smoothly.</li>
+            <li><strong style="color:#fff">Rule:</strong> The output UI operates as a pristine, zero-trust Dashboard for executive demonstration. Everything must load smoothly.</li>
           </ul>
         </div>
       </div>
@@ -678,7 +698,7 @@
               <td style="padding:8px 0;">PMAction ADHD PDF</td><td>Series B</td><td>3,100</td><td style="color:#ef4444;">Killed ($0.00 EPC)</td>
             </tr>
             <tr style="border-bottom:1px solid rgba(255,255,255,0.05);">
-              <td style="padding:8px 0;">Copart Towing Crisis</td><td>Series A</td><td>8,450</td><td style="color:#10b981;">Winner (32 Leads)</td>
+              <td style="padding:8px 0;">TTL Towing Storage Crisis</td><td>Series A</td><td>8,450</td><td style="color:#10b981;">Winner (32 Leads)</td>
             </tr>
           </table>
           <button class="kbtn" style="margin-top:1rem; width:100%; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1);">View Full Media Vault JSON</button>
@@ -952,7 +972,7 @@
           </div>
         `;
       } catch (e) {
-        console.warn("Falling back to VC Demo Profile due to API limits/key issue.", e);
+        console.warn("Falling back to Demo Profile due to API limits/key issue.", e);
         document.getElementById(loadingId).remove();
         
         const demoResponses = [
@@ -965,7 +985,7 @@
         
         msgs.innerHTML += `
           <div style="display:flex; gap:8px;">
-            <div style="width:28px; height:28px; background:linear-gradient(135deg, var(--amber), var(--red)); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:0.7rem; color:white; font-weight:800; flex-shrink:0;">VC</div>
+            <div style="width:28px; height:28px; background:linear-gradient(135deg, var(--amber), var(--red)); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:0.7rem; color:white; font-weight:800; flex-shrink:0;">AI</div>
             <div style="background:rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.3); padding:10px 14px; border-radius:0 12px 12px 12px; color:var(--text-muted);">
               <em style="color:var(--amber); font-size:0.75rem; text-transform:uppercase; font-weight:800;">[Demo UAT Mode Active]</em><br><br>
               ${randomDemo}
