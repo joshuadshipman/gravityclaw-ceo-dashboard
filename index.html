@@ -3,8 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
   <title>Governance Dashboard | GravityClaw Series C</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=5.0">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Outfit:wght@400;800&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
 </head>
@@ -52,11 +55,18 @@
       </button>
 
       <div style="font-size: 0.7rem; color: var(--text-muted); font-weight:800; letter-spacing:0.1em; text-transform:uppercase; margin: 1rem 0 0.25rem 0.75rem;">HQ & Discovery</div>
+      <button class="nav-item" onclick="switchTab('risk', this)">
+        <span class="nav-icon">⚖️</span> Risk Assessment
+      </button>
+
       <button class="nav-item" onclick="switchTab('qa-hub', this)">
         <span class="nav-icon">✅</span> Quality Assurance
       </button>
       <button class="nav-item" onclick="switchTab('research', this)">
         <span class="nav-icon">📡</span> Research & News
+      </button>
+      <button class="nav-item" onclick="switchTab('comms', this)">
+        <span class="nav-icon">☎️</span> Comms & Leads
       </button>
       <button class="nav-item" onclick="switchTab('sandbox', this)">
         <span class="nav-icon">💡</span> Idea Sandbox
@@ -81,14 +91,73 @@
         <div class="page-title" id="page-title-display">Overview</div>
       </div>
       <div class="topbar-right" style="display:flex; align-items:center; gap:12px;">
-        <button class="kbtn" style="background:rgba(59,130,246,0.1); border:1px solid rgba(59,130,246,0.3); color:var(--blue); display:flex; align-items:center; gap:6px;">
-          <span>📈</span> VC Architecture Deck
-        </button>
+        <a href="vc-intelligence-hub.html" class="kbtn" style="text-decoration:none; background:rgba(59,130,246,0.1); border:1px solid rgba(59,130,246,0.3); color:var(--blue); display:flex; align-items:center; gap:6px;" target="_blank">
+          <span>🧠</span> VC Intelligence Hub
+        </a>
         <div class="live-badge">AUTONOMOUS RUNNING</div>
       </div>
     </header>
 
     <!-- TAB 1: OVERVIEW -->
+    
+    <!-- TAB: RISK ASSESSMENT -->
+    <section id="tab-risk" class="tab-pane">
+      <div class="section-label">Autonomous Risk Assessment & Deep Study Pipeline</div>
+      <p style="color:var(--text-muted); font-size:0.9rem; margin-bottom:1.5rem;">The AI Intelligence Loop. All ingested ideas, links, and dossiers must pass through this rigorous 4-stage validation chain before qualifying for CEO Approval.</p>
+
+      <div class="kanban-board" style="display: flex; gap: 1rem; overflow-x: auto; padding-bottom: 1rem; margin-top: 2rem;">
+        
+        <!-- Stage 1 -->
+        <div style="flex: 1; min-width: 250px; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; padding: 1rem;">
+          <h4 style="margin: 0 0 1rem 0; border-bottom: 2px solid #6b7280; padding-bottom: 0.5rem; color: #9ca3af;">1. Draft Requests</h4>
+          
+          <div class="kanban-card" style="background: var(--bg-card); padding: 1rem; border-radius: 4px; border-left: 3px solid #6b7280; font-size: 0.85rem;">
+            <div style="font-weight: 600; margin-bottom: 0.25rem;">[TTL] Copart Market Alternative</div>
+            <div style="color: var(--text-muted); margin-bottom: 0.5rem;">Intake: Competitor Video Link.</div>
+            <div style="color: #6b7280; font-size: 0.75rem;">Status: Drafting 5 core test questions.</div>
+          </div>
+        </div>
+
+        <!-- Stage 2 -->
+        <div style="flex: 1; min-width: 250px; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; padding: 1rem;">
+          <h4 style="margin: 0 0 1rem 0; border-bottom: 2px solid #3b82f6; padding-bottom: 0.5rem; color: #60a5fa;">2. Deep Study Active</h4>
+          
+          <div class="kanban-card" style="background: var(--bg-card); padding: 1rem; border-radius: 4px; border-left: 3px solid #3b82f6; font-size: 0.85rem; margin-bottom: 0.75rem;">
+            <div style="font-weight: 600; margin-bottom: 0.25rem;">[PMA] TikTok Lead Scraper</div>
+            <div style="color: var(--text-muted); margin-bottom: 0.5rem;">Agent: Gathering pricing & API limits.</div>
+            <div style="color: #3b82f6; font-size: 0.75rem;">Status: Waiting on Google Search data.</div>
+          </div>
+        </div>
+
+        <!-- Stage 3 -->
+        <div style="flex: 1; min-width: 250px; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; padding: 1rem;">
+          <h4 style="margin: 0 0 1rem 0; border-bottom: 2px solid #f59e0b; padding-bottom: 0.5rem; color: #fbbf24;">3. Gap Auditor Review</h4>
+          
+          <div class="kanban-card" style="background: var(--bg-card); padding: 1rem; border-radius: 4px; border-left: 3px solid #f59e0b; font-size: 0.85rem; margin-bottom: 0.75rem;">
+            <div style="font-weight: 600; margin-bottom: 0.25rem;">[Core] Twilio VoIP Integration</div>
+            <div style="color: var(--text-muted); margin-bottom: 0.5rem;">Focus: Evaluating ROI feasibility.</div>
+            <div style="color: #f59e0b; font-size: 0.75rem;">Status: Calculating 80% confidence score.</div>
+          </div>
+        </div>
+
+        <!-- Stage 4 -->
+        <div style="flex: 1; min-width: 250px; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; padding: 1rem;">
+          <h4 style="margin: 0 0 1rem 0; border-bottom: 2px solid #10b981; padding-bottom: 0.5rem; color: #34d399;">4. Pending CEO Approval</h4>
+          
+          <div class="kanban-card" style="background: var(--bg-card); padding: 1rem; border-radius: 4px; border-left: 3px solid #10b981; border-top: 1px solid rgba(16,185,129,0.3); font-size: 0.85rem; margin-bottom: 0.75rem;">
+            <div style="font-weight: 600; margin-bottom: 0.25rem;">[Corporate] Global App Consolidation</div>
+            <div style="color: var(--text-muted); margin-bottom: 0.5rem;">Auditor Verdict: PASS (92% Confidence).</div>
+            <div style="color: #10b981; font-size: 0.75rem; font-weight: bold; margin-bottom: 0.5rem;">Action: Manual Review Required.</div>
+            <div style="display:flex; gap:0.5rem;">
+              <button style="background:#10b981; color:#0f172a; border:none; padding:4px 8px; border-radius:4px; font-weight:bold; cursor:pointer;">Approve</button>
+              <button style="background:rgba(239,68,68,0.2); color:#ef4444; border:1px solid rgba(239,68,68,0.5); padding:4px 8px; border-radius:4px; font-weight:bold; cursor:pointer;">Kill</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
     <section id="tab-overview" class="tab-pane active">
       <div class="section-label">Executive Metrics Overview</div>
       <div class="grid-4" style="margin-bottom: 2rem;">
@@ -170,6 +239,25 @@
     <!-- TAB 4: SERIES C -->
     <section id="tab-series-c" class="tab-pane">
       <div class="section-label" style="color:var(--purple)">Series C: Arbitrage Factory Kanban</div>
+      
+      <!-- Series C Workflow -->
+      <div class="glass-card" style="margin-bottom: 2rem; overflow-x: auto;">
+        <h4 style="color:#fff; margin-bottom:1rem;">GitHub-to-Etsy Arbitrage Workflow</h4>
+        <div class="mermaid" style="min-width: 600px;">
+          graph LR
+            Scrape["Scrape MIT Repos"] --> Review["CEO Approval Gate"]
+            Review --> Reskin["Global Agent Reskins UI"]
+            Reskin --> UAT["Red Team Auditor"]
+            UAT -- Fails --> Reskin
+            UAT -- Passes --> Deploy["Deploy to Firebase"]
+            Deploy --> Package["Gumroad/Etsy Listing"]
+            Package --> SEO["High-Velocity SEO"]
+            style Scrape fill:#1e293b,stroke:#8b5cf6,color:#fff
+            style UAT fill:#1e293b,stroke:#ef4444,color:#fff
+            style Package fill:#1e293b,stroke:#10b981,color:#fff
+        </div>
+      </div>
+
       <div class="kanban-board" id="kanban-series-c">
         <!-- Rendered via JS -->
       </div>
@@ -213,18 +301,53 @@
                 </div>
               </div>
               <h4 style="color:#fff; margin-bottom:0.5rem;">Week 1 Queued Drafts (Requires Approval)</h4>
-              <div style="display:flex; flex-direction:column; gap:0.5rem;">
+              <div style="display:flex; flex-direction:column; gap:0.5rem; max-height: 350px; overflow-y: auto; padding-right: 0.5rem;">
                 <div style="background:rgba(239,68,68,0.1); padding:1rem; border-radius:8px; display:flex; justify-content:space-between; align-items:center;">
                    <div>
-                     <strong style="color: white">Draft 01 (Tuesday): "Do NOT sign that first settlement offer..."</strong><br>
+                     <strong style="color: white">Day 1 (Mon): "The Tow Yard Reality Check"</strong><br>
                      <span style="font-size:0.8rem; color:var(--text-secondary);">HOOK: "Did your truck get towed? Stop. Wait. Don't sign..."</span>
                    </div>
                    <button class="kbtn approve" style="white-space:nowrap; border:1px solid #ef4444; color:#ef4444; background:none" onclick="this.style.opacity='0.5'; this.innerText='Approved!'; this.style.background='#ef4444'; this.style.color='white';">Approve</button>
                 </div>
                 <div style="background:rgba(239,68,68,0.1); padding:1rem; border-radius:8px; display:flex; justify-content:space-between; align-items:center;">
                    <div>
-                     <strong style="color: white">Draft 02 (Thursday): "How insurance scams you on ACV..."</strong><br>
+                     <strong style="color: white">Day 2 (Tue): "Adjuster Red Flags"</strong><br>
+                     <span style="font-size:0.8rem; color:var(--text-secondary);">HOOK: "If your adjuster says this one phrase, hang up immediately."</span>
+                   </div>
+                   <button class="kbtn approve" style="white-space:nowrap; border:1px solid #ef4444; color:#ef4444; background:none" onclick="this.style.opacity='0.5'; this.innerText='Approved!'; this.style.background='#ef4444'; this.style.color='white';">Approve</button>
+                </div>
+                <div style="background:rgba(239,68,68,0.1); padding:1rem; border-radius:8px; display:flex; justify-content:space-between; align-items:center;">
+                   <div>
+                     <strong style="color: white">Day 3 (Wed): "How insurance scams you on ACV"</strong><br>
                      <span style="font-size:0.8rem; color:var(--text-secondary);">HOOK: "Adjusted Cash Value is rigged against you. Here is how."</span>
+                   </div>
+                   <button class="kbtn approve" style="white-space:nowrap; border:1px solid #ef4444; color:#ef4444; background:none" onclick="this.style.opacity='0.5'; this.innerText='Approved!'; this.style.background='#ef4444'; this.style.color='white';">Approve</button>
+                </div>
+                <div style="background:rgba(239,68,68,0.1); padding:1rem; border-radius:8px; display:flex; justify-content:space-between; align-items:center;">
+                   <div>
+                     <strong style="color: white">Day 4 (Thu): "Hidden Storage Fees Explored"</strong><br>
+                     <span style="font-size:0.8rem; color:var(--text-secondary);">HOOK: "They are charging you $200/day just to sit there. Here is the loophole."</span>
+                   </div>
+                   <button class="kbtn approve" style="white-space:nowrap; border:1px solid #ef4444; color:#ef4444; background:none" onclick="this.style.opacity='0.5'; this.innerText='Approved!'; this.style.background='#ef4444'; this.style.color='white';">Approve</button>
+                </div>
+                <div style="background:rgba(239,68,68,0.1); padding:1rem; border-radius:8px; display:flex; justify-content:space-between; align-items:center;">
+                   <div>
+                     <strong style="color: white">Day 5 (Fri): "Client Win — $12k More on Total Loss"</strong><br>
+                     <span style="font-size:0.8rem; color:var(--text-secondary);">HOOK: "They offered him $18k for his F-150. TTL got him $30k."</span>
+                   </div>
+                   <button class="kbtn approve" style="white-space:nowrap; border:1px solid #ef4444; color:#ef4444; background:none" onclick="this.style.opacity='0.5'; this.innerText='Approved!'; this.style.background='#ef4444'; this.style.color='white';">Approve</button>
+                </div>
+                <div style="background:rgba(239,68,68,0.1); padding:1rem; border-radius:8px; display:flex; justify-content:space-between; align-items:center;">
+                   <div>
+                     <strong style="color: white">Day 6 (Sat): "The 3 Steps to Fight Back"</strong><br>
+                     <span style="font-size:0.8rem; color:var(--text-secondary);">HOOK: "Bookmark this video. If you ever crash, you need these 3 steps."</span>
+                   </div>
+                   <button class="kbtn approve" style="white-space:nowrap; border:1px solid #ef4444; color:#ef4444; background:none" onclick="this.style.opacity='0.5'; this.innerText='Approved!'; this.style.background='#ef4444'; this.style.color='white';">Approve</button>
+                </div>
+                <div style="background:rgba(239,68,68,0.1); padding:1rem; border-radius:8px; display:flex; justify-content:space-between; align-items:center;">
+                   <div>
+                     <strong style="color: white">Day 7 (Sun): "What to do IMMEDIATELY after a crash"</strong><br>
+                     <span style="font-size:0.8rem; color:var(--text-secondary);">HOOK: "Adrenaline is pumping. Do not talk to the other driver until you do this."</span>
                    </div>
                    <button class="kbtn approve" style="white-space:nowrap; border:1px solid #ef4444; color:#ef4444; background:none" onclick="this.style.opacity='0.5'; this.innerText='Approved!'; this.style.background='#ef4444'; this.style.color='white';">Approve</button>
                 </div>
@@ -250,11 +373,53 @@
                 </div>
               </div>
               <h4 style="color:#fff; margin-bottom:0.5rem;">Week 1 Queued Drafts (Requires Approval)</h4>
-              <div style="display:flex; flex-direction:column; gap:0.5rem;">
+              <div style="display:flex; flex-direction:column; gap:0.5rem; max-height: 350px; overflow-y: auto; padding-right: 0.5rem;">
                 <div style="background:rgba(59,130,246,0.1); padding:1rem; border-radius:8px; display:flex; justify-content:space-between; align-items:center;">
                    <div>
-                     <strong style="color: white">Draft 01 (Monday): "Why traditional planners fail ADHD brains"</strong><br>
-                     <span style="font-size:0.8rem; color:var(--text-secondary);">TYPE: Short-Form (TikTok/Reels)</span>
+                     <strong style="color: white">Day 1 (Mon): "Why planners fail ADHD brains"</strong><br>
+                     <span style="font-size:0.8rem; color:var(--text-secondary);">HOOK: "You don't need another list. You need dopamine routing."</span>
+                   </div>
+                   <button class="kbtn approve" style="white-space:nowrap; border:1px solid #3b82f6; color:#3b82f6; background:none" onclick="this.style.opacity='0.5'; this.innerText='Approved!'; this.style.background='#3b82f6'; this.style.color='white';">Approve</button>
+                </div>
+                <div style="background:rgba(59,130,246,0.1); padding:1rem; border-radius:8px; display:flex; justify-content:space-between; align-items:center;">
+                   <div>
+                     <strong style="color: white">Day 2 (Tue): "The dopamine fast myth"</strong><br>
+                     <span style="font-size:0.8rem; color:var(--text-secondary);">HOOK: "Starving your brain of joy won't make you work harder."</span>
+                   </div>
+                   <button class="kbtn approve" style="white-space:nowrap; border:1px solid #3b82f6; color:#3b82f6; background:none" onclick="this.style.opacity='0.5'; this.innerText='Approved!'; this.style.background='#3b82f6'; this.style.color='white';">Approve</button>
+                </div>
+                <div style="background:rgba(59,130,246,0.1); padding:1rem; border-radius:8px; display:flex; justify-content:space-between; align-items:center;">
+                   <div>
+                     <strong style="color: white">Day 3 (Wed): "Re-wiring Executive Dysfunction"</strong><br>
+                     <span style="font-size:0.8rem; color:var(--text-secondary);">HOOK: "You aren't lazy. Your transition threshold is just too high."</span>
+                   </div>
+                   <button class="kbtn approve" style="white-space:nowrap; border:1px solid #3b82f6; color:#3b82f6; background:none" onclick="this.style.opacity='0.5'; this.innerText='Approved!'; this.style.background='#3b82f6'; this.style.color='white';">Approve</button>
+                </div>
+                <div style="background:rgba(59,130,246,0.1); padding:1rem; border-radius:8px; display:flex; justify-content:space-between; align-items:center;">
+                   <div>
+                     <strong style="color: white">Day 4 (Thu): "The 30-Day PMAction Challenge"</strong><br>
+                     <span style="font-size:0.8rem; color:var(--text-secondary);">HOOK: "Can you rebuild your focus in 30 days? Clinical trials say yes."</span>
+                   </div>
+                   <button class="kbtn approve" style="white-space:nowrap; border:1px solid #3b82f6; color:#3b82f6; background:none" onclick="this.style.opacity='0.5'; this.innerText='Approved!'; this.style.background='#3b82f6'; this.style.color='white';">Approve</button>
+                </div>
+                <div style="background:rgba(59,130,246,0.1); padding:1rem; border-radius:8px; display:flex; justify-content:space-between; align-items:center;">
+                   <div>
+                     <strong style="color: white">Day 5 (Fri): "Case Study: From overwhelm to deep focus"</strong><br>
+                     <span style="font-size:0.8rem; color:var(--text-secondary);">HOOK: "See how this engineer used the Vault to save his career."</span>
+                   </div>
+                   <button class="kbtn approve" style="white-space:nowrap; border:1px solid #3b82f6; color:#3b82f6; background:none" onclick="this.style.opacity='0.5'; this.innerText='Approved!'; this.style.background='#3b82f6'; this.style.color='white';">Approve</button>
+                </div>
+                <div style="background:rgba(59,130,246,0.1); padding:1rem; border-radius:8px; display:flex; justify-content:space-between; align-items:center;">
+                   <div>
+                     <strong style="color: white">Day 6 (Sat): "The Clinical Guide to Time Blindness"</strong><br>
+                     <span style="font-size:0.8rem; color:var(--text-secondary);">HOOK: "Ever sit down to work and suddenly it's 3 AM? Read this."</span>
+                   </div>
+                   <button class="kbtn approve" style="white-space:nowrap; border:1px solid #3b82f6; color:#3b82f6; background:none" onclick="this.style.opacity='0.5'; this.innerText='Approved!'; this.style.background='#3b82f6'; this.style.color='white';">Approve</button>
+                </div>
+                <div style="background:rgba(59,130,246,0.1); padding:1rem; border-radius:8px; display:flex; justify-content:space-between; align-items:center;">
+                   <div>
+                     <strong style="color: white">Day 7 (Sun): "Weekly Reset Protocol"</strong><br>
+                     <span style="font-size:0.8rem; color:var(--text-secondary);">HOOK: "The Sunday anxiety is real. Here is the 10-minute cure."</span>
                    </div>
                    <button class="kbtn approve" style="white-space:nowrap; border:1px solid #3b82f6; color:#3b82f6; background:none" onclick="this.style.opacity='0.5'; this.innerText='Approved!'; this.style.background='#3b82f6'; this.style.color='white';">Approve</button>
                 </div>
@@ -280,11 +445,53 @@
                 </div>
               </div>
               <h4 style="color:#fff; margin-bottom:0.5rem;">Week 1 Queued Drafts (Requires Approval)</h4>
-              <div style="display:flex; flex-direction:column; gap:0.5rem;">
+              <div style="display:flex; flex-direction:column; gap:0.5rem; max-height: 350px; overflow-y: auto; padding-right: 0.5rem;">
                 <div style="background:rgba(16,185,129,0.1); padding:1rem; border-radius:8px; display:flex; justify-content:space-between; align-items:center;">
                    <div>
-                     <strong style="color: white">Draft 01 (Monday): "Replacing a QA team with 2-Level AI loops"</strong><br>
-                     <span style="font-size:0.8rem; color:var(--text-secondary);">TYPE: X / LinkedIn Thread</span>
+                     <strong style="color: white">Day 1 (Mon): "QA Replacement with 2-Level AI loops"</strong><br>
+                     <span style="font-size:0.8rem; color:var(--text-secondary);">THREAD: "Stop paying for manual QA. Build a Red Team logic loop."</span>
+                   </div>
+                   <button class="kbtn approve" style="white-space:nowrap; border:1px solid #10b981; color:#10b981; background:none" onclick="this.style.opacity='0.5'; this.innerText='Approved!'; this.style.background='#10b981'; this.style.color='white';">Approve</button>
+                </div>
+                <div style="background:rgba(16,185,129,0.1); padding:1rem; border-radius:8px; display:flex; justify-content:space-between; align-items:center;">
+                   <div>
+                     <strong style="color: white">Day 2 (Tue): "How I clone SaaS products in 4 hours"</strong><br>
+                     <span style="font-size:0.8rem; color:var(--text-secondary);">THREAD: "Speed is the only moat left. Here is my 4-hour build framework."</span>
+                   </div>
+                   <button class="kbtn approve" style="white-space:nowrap; border:1px solid #10b981; color:#10b981; background:none" onclick="this.style.opacity='0.5'; this.innerText='Approved!'; this.style.background='#10b981'; this.style.color='white';">Approve</button>
+                </div>
+                <div style="background:rgba(16,185,129,0.1); padding:1rem; border-radius:8px; display:flex; justify-content:space-between; align-items:center;">
+                   <div>
+                     <strong style="color: white">Day 3 (Wed): "SaaS Boilerplate Drop: Maker Vault"</strong><br>
+                     <span style="font-size:0.8rem; color:var(--text-secondary);">HOOK: "Just open-sourced the exact NextJS stack I use. $5k value for free."</span>
+                   </div>
+                   <button class="kbtn approve" style="white-space:nowrap; border:1px solid #10b981; color:#10b981; background:none" onclick="this.style.opacity='0.5'; this.innerText='Approved!'; this.style.background='#10b981'; this.style.color='white';">Approve</button>
+                </div>
+                <div style="background:rgba(16,185,129,0.1); padding:1rem; border-radius:8px; display:flex; justify-content:space-between; align-items:center;">
+                   <div>
+                     <strong style="color: white">Day 4 (Thu): "Why you should stop charging for features"</strong><br>
+                     <span style="font-size:0.8rem; color:var(--text-secondary);">THREAD: "Sell outcomes, not buttons. The psychology of micro-SaaS pricing."</span>
+                   </div>
+                   <button class="kbtn approve" style="white-space:nowrap; border:1px solid #10b981; color:#10b981; background:none" onclick="this.style.opacity='0.5'; this.innerText='Approved!'; this.style.background='#10b981'; this.style.color='white';">Approve</button>
+                </div>
+                <div style="background:rgba(16,185,129,0.1); padding:1rem; border-radius:8px; display:flex; justify-content:space-between; align-items:center;">
+                   <div>
+                     <strong style="color: white">Day 5 (Fri): "The Fake-Door validation masterclass"</strong><br>
+                     <span style="font-size:0.8rem; color:var(--text-secondary);">THREAD: "Don't write a line of code until someone clicks 'Buy'. Here is how."</span>
+                   </div>
+                   <button class="kbtn approve" style="white-space:nowrap; border:1px solid #10b981; color:#10b981; background:none" onclick="this.style.opacity='0.5'; this.innerText='Approved!'; this.style.background='#10b981'; this.style.color='white';">Approve</button>
+                </div>
+                <div style="background:rgba(16,185,129,0.1); padding:1rem; border-radius:8px; display:flex; justify-content:space-between; align-items:center;">
+                   <div>
+                     <strong style="color: white">Day 6 (Sat): "Deploying the ADHD planner on Vercel"</strong><br>
+                     <span style="font-size:0.8rem; color:var(--text-secondary);">THREAD: "A behind-the-scenes look at how we scaled Pilot-001 to 10k users."</span>
+                   </div>
+                   <button class="kbtn approve" style="white-space:nowrap; border:1px solid #10b981; color:#10b981; background:none" onclick="this.style.opacity='0.5'; this.innerText='Approved!'; this.style.background='#10b981'; this.style.color='white';">Approve</button>
+                </div>
+                <div style="background:rgba(16,185,129,0.1); padding:1rem; border-radius:8px; display:flex; justify-content:space-between; align-items:center;">
+                   <div>
+                     <strong style="color: white">Day 7 (Sun): "Sunday Board Digest: Weekly SaaS Revenue"</strong><br>
+                     <span style="font-size:0.8rem; color:var(--text-secondary);">THREAD: "A transparent breakdown of our $20k/mo MRR engine."</span>
                    </div>
                    <button class="kbtn approve" style="white-space:nowrap; border:1px solid #10b981; color:#10b981; background:none" onclick="this.style.opacity='0.5'; this.innerText='Approved!'; this.style.background='#10b981'; this.style.color='white';">Approve</button>
                 </div>
@@ -376,14 +583,15 @@
 
     <!-- TAB 7: GOVERNANCE -->
     <section id="tab-governance" class="tab-pane">
-      <div class="section-label">Governance & Compliance Logic</div>
+      <div class="section-label">Governance & Compliance Rules</div>
       <div class="grid-2">
         <div class="glass-card">
-          <h3 style="color:var(--cyan); margin-bottom: 0.5rem">Chief Learning Officer Protocols</h3>
+          <h3 style="color:var(--cyan); margin-bottom: 0.5rem">System Interaction Guidelines</h3>
           <ul style="color:var(--text-muted); font-size: 0.85rem; padding-left: 1.5rem; line-height: 1.8;">
-            <li><strong style="color:#fff">Rule G4:</strong> UAT Persona Auditing is mandatory prior to live release.</li>
-            <li><strong style="color:#fff">Rule G5 (Anti-Corruption Lock):</strong> Agents must verify line-counts before UI injection to avoid truncating layouts.</li>
-            <li><strong style="color:#fff">Rule G6 (No Blind Init):</strong> Prevent silent Firebase overrides during backend tasks.</li>
+            <li><strong style="color:#fff">Rule G4 (Release Approval):</strong> All new features, designs, and content must be reviewed from the perspective of our key users (Consumers, Agents, Lawyers) before they can be seen by the public.</li>
+            <li><strong style="color:#fff">Rule G5 (Safe Dashboard Editing):</strong> When making updates to our command center or any critical dashboard files, the system must double-check that it isn't accidentally deleting existing content. If an update appears to wipe out a large portion of a file, the system must stop immediately and ask for CEO approval.</li>
+            <li><strong style="color:#fff">Rule G6 (Firebase Safety Guard):</strong> No automated system can reset or initialize hosting servers in a folder that already contains our working websites, ensuring our live platforms are never accidentally overwritten.</li>
+            <li><strong style="color:#fff">Rule G7 (System Security Guard):</strong> Automated systems are strictly forbidden from scanning personal computer directories that cause the operating system to freeze or demand manual security clicks.</li>
           </ul>
         </div>
         
@@ -453,7 +661,50 @@
 
     <!-- TAB 9: RESEARCH & NEWS -->
     <section id="tab-research" class="tab-pane">
-      <div class="section-label">Market Signals & News Digest</div>
+      <div class="section-label">Signal Intelligence & Research Vault</div>
+      <p style="color:var(--text-muted); font-size:0.9rem; margin-bottom:1.5rem;">The unified repository for market signals, categorized competitor analysis, and media performance indexing.</p>
+
+      <div class="grid-2" style="margin-bottom: 2rem;">
+        <div class="glass-card">
+          <h3 style="color:var(--cyan); margin-bottom: 1rem">Media Performance Vault (Historical)</h3>
+          <table style="width:100%; border-collapse:collapse; font-size:0.85rem; color: #fff;">
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.1); color:var(--text-muted); text-align:left;">
+              <th style="padding:8px 0;">Campaign</th><th style="padding:8px 0;">Series</th><th style="padding:8px 0;">Impressions</th><th style="padding:8px 0;">Result</th>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.05);">
+              <td style="padding:8px 0;">Fake Door "Stripe Sandbox"</td><td>Series C</td><td>14,200</td><td style="color:#10b981;">Winner ($212 EPC)</td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.05);">
+              <td style="padding:8px 0;">PMAction ADHD PDF</td><td>Series B</td><td>3,100</td><td style="color:#ef4444;">Killed ($0.00 EPC)</td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.05);">
+              <td style="padding:8px 0;">Copart Towing Crisis</td><td>Series A</td><td>8,450</td><td style="color:#10b981;">Winner (32 Leads)</td>
+            </tr>
+          </table>
+          <button class="kbtn" style="margin-top:1rem; width:100%; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1);">View Full Media Vault JSON</button>
+        </div>
+
+        <div class="glass-card">
+          <h3 style="color:var(--purple); margin-bottom: 1rem">Deep Study Research Vault</h3>
+          <div style="display:flex; flex-direction:column; gap:0.5rem;">
+            <div style="background:rgba(255,255,255,0.05); padding:10px; border-radius:6px; display:flex; justify-content:space-between;">
+              <span style="color:#fff">📁 TTL Competitor Transcripts (Feb/Mar)</span>
+              <span style="color:var(--text-muted);">JSON</span>
+            </div>
+            <div style="background:rgba(255,255,255,0.05); padding:10px; border-radius:6px; display:flex; justify-content:space-between;">
+              <span style="color:#fff">📁 SaaS Factory Product Blueprints</span>
+              <span style="color:var(--text-muted);">MD</span>
+            </div>
+            <div style="background:rgba(255,255,255,0.05); padding:10px; border-radius:6px; display:flex; justify-content:space-between;">
+              <span style="color:#fff">📁 B2B API Scraper Pricing Matrix</span>
+              <span style="color:var(--text-muted);">JSON</span>
+            </div>
+          </div>
+          <button class="kbtn" style="margin-top:1rem; width:100%; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1);">Access Secure Storage (Firebase)</button>
+        </div>
+      </div>
+      
+      <div class="section-label">Live Market Signals</div>
       <div class="grid-3" style="margin-bottom:2rem;">
         <div class="glass-card" style="border-left: 4px solid var(--purple);">
           <h3 style="font-size: 0.9rem; margin: 0 0 0.5rem 0; color:#fff;">Midjourney Pivot to 3D Models</h3>
@@ -469,6 +720,63 @@
           <h3 style="font-size: 0.9rem; margin: 0 0 0.5rem 0; color:#fff;">TikTok Ad Costs Rising</h3>
           <p style="font-size: 0.8rem; color:var(--text-muted);">Suggest immediate pivot to 100% organic syndication for PMAction SaaS.</p>
           <div style="font-size: 0.7rem; color:var(--cyan); margin-top:0.5rem;">Source: TechRadar Scraper</div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- TAB 11: COMMS & LEADS -->
+    <section id="tab-comms" class="tab-pane">
+      <div class="section-label">Communication Infrastructure & Agent Triage</div>
+      <p style="color:var(--text-muted); font-size:0.9rem; margin-bottom:1.5rem;">Decoupled voice infrastructure. AI intake handles the funnel; Humans handle the closing.</p>
+
+      <div class="grid-2">
+        <div class="glass-card" style="border-top: 4px solid var(--purple);">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+            <h3 style="color:var(--purple); margin:0;">🤖 Angel (The TTL Bot)</h3>
+            <div class="live-badge" style="background:rgba(16,185,129,0.1); color:#10b981; border:1px solid #10b981;">STANDBY</div>
+          </div>
+          <div style="font-size:0.85rem; color:var(--text-muted); line-height:1.6;">
+            <div><strong style="color:#fff;">Provider:</strong> Twilio Programmable Voice</div>
+            <div><strong style="color:#fff;">Area Code:</strong> [Pending Provisioning]</div>
+            <div><strong style="color:#fff;">Logic:</strong> Angel 2.0 (Intake & Warm Transfer)</div>
+          </div>
+          <div style="margin-top:1.5rem; padding:1rem; background:rgba(0,0,0,0.2); border-radius:8px;">
+            <div style="font-size:0.7rem; color:var(--text-muted); text-transform:uppercase; margin-bottom:0.5rem;">Integration Bridge</div>
+            <a href="https://github.com/joshuadshipman/AllAppsHubSkills/blob/main/.gemini/antigravity/brain/9c6cf7a8-8b02-4bb5-aad3-41d00cdcbea8/twilio_bridge.js" target="_blank" style="color:var(--cyan); font-size:0.8rem; text-decoration:none;">View twilio_bridge.js →</a>
+          </div>
+        </div>
+
+        <div class="glass-card" style="border-top: 4px solid var(--blue);">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+            <h3 style="color:var(--blue); margin:0;">👥 Human Agent Triage</h3>
+            <div class="live-badge" style="background:rgba(245,158,11,0.1); color:#fbbf24; border:1px solid #fbbf24;">PENDING SETUP</div>
+          </div>
+          <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:1rem;">Agents must be provisioned via Google Voice for Business licenses.</p>
+          <div style="display:flex; flex-direction:column; gap:0.5rem; margin-bottom:1.5rem;">
+            <div style="padding:0.75rem; background:rgba(255,255,255,0.03); border-radius:6px; font-size:0.85rem; display:flex; justify-content:space-between;">
+              <span>Agent 1 (Texas)</span>
+              <span style="color:#ef4444;">No Number Linked</span>
+            </div>
+            <div style="padding:0.75rem; background:rgba(255,255,255,0.03); border-radius:6px; font-size:0.85rem; display:flex; justify-content:space-between;">
+              <span>Agent 2 (Recovery)</span>
+              <span style="color:#ef4444;">No Number Linked</span>
+            </div>
+          </div>
+          <a href="https://github.com/joshuadshipman/AllAppsHubSkills/blob/main/.gemini/antigravity/brain/9c6cf7a8-8b02-4bb5-aad3-41d00cdcbea8/DHV_Agent_Provisioning.md" target="_blank" class="kbtn" style="width:100%; text-align:center; text-decoration:none;">Open Provisioning Guide</a>
+        </div>
+      </div>
+
+      <div class="section-label" style="margin-top:2rem;">Angel's Live Hand-off Logic</div>
+      <div class="glass-card" style="overflow-x:auto;">
+        <div class="mermaid">
+          graph LR
+            In["Incoming Call"] --> Angel["Angel (Twilio AI)"]
+            Angel --> Qualify{"LVI Score > 80?"}
+            Qualify -- No --> Lead["Mark Lead / SMS Followup"]
+            Qualify -- Yes --> Transfer["Warm Transfer (Google Voice Group)"]
+            Transfer --> Agents["Human Agents Ringing"]
+            style Angel fill:#1e293b,stroke:#8b5cf6,color:#fff
+            style Agents fill:#1e293b,stroke:#3b82f6,color:#fff
         </div>
       </div>
     </section>
@@ -536,7 +844,7 @@
     </button>
   </div>
 
-  <script src="app.js"></script>
+  <script type="module" src="app.js"></script>
   <script>
     mermaid.initialize({ startOnLoad: true, theme: 'dark', themeVariables: { fontFamily: 'Inter' } });
     
@@ -556,6 +864,7 @@
         'governance': 'Governance & Logic',
         'qa-hub': 'Quality Assurance & Testing',
         'research': 'Research & News',
+        'comms': 'Comms & Leads',
         'sandbox': 'Idea Sandbox'
       };
       document.getElementById('page-title-display').innerText = titles[tabId] || 'Overview';
@@ -614,12 +923,11 @@
       msgs.scrollTop = msgs.scrollHeight;
 
       try {
-        const apiKey = "AIzaSyAQ4FxIbVEAOO9v0-RchFBy6sdtHXoqayM"; // Injected securely during UAT
-        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
+        const response = await fetch('http://localhost:3001/chat', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            contents: [{ parts: [{ text: "You are the GravityClaw CEO Dashboard AI Assistant. The user says: " + text }] }]
+            messages: [{ role: "user", parts: [{ text }] }]
           })
         });
         
@@ -628,7 +936,7 @@
         }
         
         const data = await response.json();
-        const replyText = data.candidates?.[0]?.content?.parts?.[0]?.text || "Sorry, I could not process that request.";
+        const replyText = data.reply || "Sorry, I could not process that request.";
         
         document.getElementById(loadingId).remove();
         
@@ -638,7 +946,7 @@
         msgs.innerHTML += `
           <div style="display:flex; gap:8px;">
             <div style="width:28px; height:28px; background:linear-gradient(135deg, var(--cyan), var(--blue)); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:0.7rem; color:white; font-weight:800; flex-shrink:0;">GC</div>
-            <div style="background:rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding:10px 14px; border-radius:0 12px 12px 12px; color:var(--text-muted);">
+            <div style="background:rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding:10px 14px; border-radius:0 12px 12px 12px; color:var(--text-primary);">
               ${formattedReply}
             </div>
           </div>
@@ -668,6 +976,6 @@
       msgs.scrollTop = msgs.scrollHeight;
     }
   </script>
-  <script type="module" src="app.js"></script>
+  <script type="module" src="app.js?v=5.0"></script>
 </body>
 </html>
